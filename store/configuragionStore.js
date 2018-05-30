@@ -1,0 +1,23 @@
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { persistCombineReducers, persistStore } from 'redux-persist';
+import thunk from 'redux-thunk';
+import storage from 'redux-persist/lib/storage';
+
+import auth from './modules/auth';
+
+const middlewares = [thunk];
+
+const persistConfig = {
+  key: 'scheduleApp',
+  storage
+};
+
+const reducer = persistCombineReducers(persistConfig, { auth });
+
+const configurationStore = () => {
+  let store = createStore(reducer, applyMiddleware(...middlewares));
+  let persistor = persistStore(store);
+  return { store, persistor };
+};
+
+export default configurationStore;
