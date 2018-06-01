@@ -5,6 +5,10 @@ import LoginScreen from './presenter';
 import * as variable from '../../components/common/variables';
 
 class Container extends Component {
+  componentWillMount() {
+    this.props.resetState();
+  }
+
   renderMessage(message) {
     // console.log(this.props);
     if (message) {

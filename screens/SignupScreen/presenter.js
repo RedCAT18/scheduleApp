@@ -7,6 +7,8 @@ import {
   StyleSheet
 } from 'react-native';
 
+import PropTypes from 'prop-types';
+
 import * as variable from '../../components/common/variables';
 
 import { Button, Input, Card, CardItem } from '../../components/common';
@@ -44,6 +46,7 @@ const SignupScreen = props => {
             onChangeText={value => props.inputForm({ prop: 'password', value })}
           />
         </CardItem>
+        <CardItem>{props.renderMessage(props.message)}</CardItem>
         <Button
           onPressOut={() =>
             props.submitSignup({
@@ -53,7 +56,7 @@ const SignupScreen = props => {
             })
           }
         >
-          Login
+          Signup
         </Button>
         <TouchableWithoutFeedback onPressOut={() => props.navigation.goBack()}>
           <View>
@@ -63,6 +66,12 @@ const SignupScreen = props => {
       </Card>
     </KeyboardAvoidingView>
   );
+};
+
+SignupScreen.propTypes = {
+  name: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired
 };
 
 const styles = StyleSheet.create({

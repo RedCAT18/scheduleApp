@@ -12,8 +12,15 @@ const SIGNUP_SUCCESS = 'submit_success';
 const SIGNUP_FAIL = 'submit_fail';
 
 const RESET_TOKEN = 'reset_token';
+const RESET_STATE = 'reset_state';
 
 //action creator
+
+function resetState() {
+  return {
+    type: RESET_STATE
+  };
+}
 
 function inputForm({ prop, value }) {
   return {
@@ -28,7 +35,7 @@ function submitLogin({ email, password }) {
     api
       .post('/auth/login', { email, password })
       .then(response => {
-        console.log(response);
+        // console.log(response);
         if (response.status === 200) {
           if (response.data.token)
             AsyncStorage.setItem('token', response.data.token);
@@ -38,7 +45,7 @@ function submitLogin({ email, password }) {
         }
       })
       .catch(error => {
-        console.log(error.response);
+        // console.log(error.response);
         dispatch({
           type: LOGIN_FAIL,
           payload: error.response.data
@@ -50,31 +57,43 @@ function submitLogin({ email, password }) {
 function submitSignup({ email, name, password }) {
   return dispatch => {
     dispatch({ type: SUBMIT_SIGNUP });
-    api
-      .post('/auth/signup', { email, name, password })
-      .then(response => {
-        // console.log(response);
-        if (response.status === 200) {
-          if (response.data.token)
-            AsyncStorage.setItem('token', response.data.token);
-          if (response.data.auth) {
-            dispatch({ type: SIGNUP_SUCCESS });
-          }
-        }
-      })
-      .catch(error => {
-        // console.log(error.response);
-        dispatch({
-          type: SIGNUP_FAIL,
-          payload: error.response.data
-        });
+
+    const data = { email, name, password };
+    if (
+      data.email.length === 0 ||
+      data.name.length === 0 ||
+      data.password.length === 0
+    ) {
+      dispatch({
+        type: SIGNUP_FAIL,
+        payload: 'Please input your information correctly.'
       });
+    } else {
+      api
+        .post('/auth/register', { email, name, password })
+        .then(response => {
+          console.log(response);
+          if (response.status === 200) {
+            if (response.data.token)
+              AsyncStorage.setItem('token', response.data.token);
+            if (response.data.auth) {
+              dispatch({ type: SIGNUP_SUCCESS });
+            }
+          }
+        })
+        .catch(error => {
+          console.log(error.response);
+          dispatch({
+            type: SIGNUP_FAIL,
+            payload: error.response.data
+          });
+        });
+    }
   };
 }
 
 function resetToken() {
   AsyncStorage.removeItem('token');
-  console.log('reset token');
   return {
     type: RESET_TOKEN
   };
@@ -110,6 +129,8 @@ function reducer(state = INITIAL_STATE, action) {
       return applySignupFail(state, action.payload);
     case RESET_TOKEN:
       return applyResetToken(state);
+    case RESET_STATE:
+      return INITIAL_STATE;
     default:
       return state;
   }
@@ -183,7 +204,8 @@ export const actionCreators = {
   inputForm,
   submitLogin,
   submitSignup,
-  resetToken
+  resetToken,
+  resetState
 };
 
 export default reducer;

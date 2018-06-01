@@ -12,7 +12,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     inputForm: bindActionCreators(authActions.inputForm, dispatch),
-    submitLogin: bindActionCreators(authActions.submitLogin, dispatch)
+    submitLogin: bindActionCreators(authActions.submitLogin, dispatch),
+    resetState: bindActionCreators(authActions.resetState, dispatch)
   };
 }
 
