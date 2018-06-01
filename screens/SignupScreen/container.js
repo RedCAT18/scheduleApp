@@ -2,9 +2,17 @@ import React, { Component } from 'react';
 import { Text, StyleSheet } from 'react-native';
 import SignupScreen from './presenter';
 
+import PropTypes from 'prop-types';
+
 import * as variable from '../../components/common/variables';
 
 class Container extends Component {
+  static propTypes = {
+    email: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired
+  };
+
   componentWillMount() {
     this.props.resetState();
   }
@@ -16,6 +24,8 @@ class Container extends Component {
   }
 
   render() {
+    const { email, name, password } = this.props;
+    console.log({ email, name, password });
     return <SignupScreen {...this.props} renderMessage={this._renderMessage} />;
   }
 }

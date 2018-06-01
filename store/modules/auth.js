@@ -62,7 +62,7 @@ function submitSignup({ email, name, password }) {
     if (
       data.email.length === 0 ||
       data.name.length === 0 ||
-      data.password.length === 0
+      data.password.length < 6
     ) {
       dispatch({
         type: SIGNUP_FAIL,
@@ -102,6 +102,7 @@ function resetToken() {
 //initial state
 
 const INITIAL_STATE = {
+  name: '',
   email: '',
   password: '',
   isLoading: false,
