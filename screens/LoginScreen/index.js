@@ -6,14 +6,13 @@ import { actionCreators as authActions } from '../../store/modules/auth';
 
 function mapStateToProps(state) {
   const { email, password, isLoading, message, isLoggedIn } = state.auth;
-
   return { email, password, isLoading, message, isLoggedIn };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     inputForm: bindActionCreators(authActions.inputForm, dispatch),
-    initializeForm: bindActionCreators(authActions.initializeForm, dispatch)
+    submitLogin: bindActionCreators(authActions.submitLogin, dispatch)
   };
 }
 

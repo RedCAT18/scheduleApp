@@ -9,7 +9,7 @@ const LoginScreen = props => {
   return (
     <KeyboardAvoidingView behavior="padding" style={styles.container}>
       <Card>
-        <Text style={styles.title}>Scheduler</Text>
+        <Text style={styles.title}>What Is Next?</Text>
       </Card>
       <Card>
         <CardItem>
@@ -30,7 +30,18 @@ const LoginScreen = props => {
             onChangeText={value => props.inputForm({ prop: 'password', value })}
           />
         </CardItem>
-        <Button>Login</Button>
+        <CardItem>{props.renderMessage(props.message)}</CardItem>
+        <Button
+          onPressOut={() =>
+            props.submitLogin({
+              email: props.email,
+              password: props.password
+            })
+          }
+        >
+          Login
+        </Button>
+        <Text style={styles.text}>Not a member yet? Register now!</Text>
       </Card>
     </KeyboardAvoidingView>
   );
@@ -44,9 +55,16 @@ const styles = StyleSheet.create({
     backgroundColor: variable.bgColor
   },
   title: {
-    fontSize: 24,
+    fontSize: 36,
     fontWeight: '600',
-    color: variable.darkColor
+    color: variable.baseColor,
+    marginBottom: 20
+  },
+  text: {
+    color: variable.secondDarkColor,
+    marginTop: 10,
+    textAlign: 'center',
+    fontSize: 14
   }
 });
 
