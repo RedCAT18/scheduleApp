@@ -1,10 +1,13 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-const MainScreen = () => {
+import { Button } from '../../components/common';
+
+const MainScreen = props => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>MainScreen</Text>
+      <Button onPressOut={() => props.resetToken()}>Reset</Button>
     </View>
   );
 };

@@ -11,6 +11,8 @@ const SUBMIT_SIGNUP = 'submit_signup';
 const SIGNUP_SUCCESS = 'submit_success';
 const SIGNUP_FAIL = 'submit_fail';
 
+const RESET_TOKEN = 'reset_token';
+
 //action creator
 
 function inputForm({ prop, value }) {
@@ -51,7 +53,7 @@ function submitSignup({ email, name, password }) {
     api
       .post('/auth/signup', { email, name, password })
       .then(response => {
-        console.log(response);
+        // console.log(response);
         if (response.status === 200) {
           if (response.data.token)
             AsyncStorage.setItem('token', response.data.token);
@@ -61,12 +63,20 @@ function submitSignup({ email, name, password }) {
         }
       })
       .catch(error => {
-        console.log(error.response);
+        // console.log(error.response);
         dispatch({
           type: SIGNUP_FAIL,
           payload: error.response.data
         });
       });
+  };
+}
+
+function resetToken() {
+  AsyncStorage.removeItem('token');
+  console.log('reset token');
+  return {
+    type: RESET_TOKEN
   };
 }
 
@@ -98,6 +108,8 @@ function reducer(state = INITIAL_STATE, action) {
       return applySignupSuccess(state);
     case SIGNUP_FAIL:
       return applySignupFail(state, action.payload);
+    case RESET_TOKEN:
+      return applyResetToken(state);
     default:
       return state;
   }
@@ -160,9 +172,18 @@ function applySignupFail(state, payload) {
   };
 }
 
+function applyResetToken(state) {
+  return {
+    ...state,
+    isLoggedIn: false
+  };
+}
+
 export const actionCreators = {
   inputForm,
-  submitLogin
+  submitLogin,
+  submitSignup,
+  resetToken
 };
 
 export default reducer;

@@ -11,13 +11,21 @@ import * as variable from '../../components/common/variables';
 
 import { Button, Input, Card, CardItem } from '../../components/common';
 
-const LoginScreen = props => {
+const SignupScreen = props => {
   return (
     <KeyboardAvoidingView behavior="padding" style={styles.container}>
       <Card>
         <Text style={styles.title}>What Is Next?</Text>
       </Card>
       <Card>
+        <CardItem>
+          <Input
+            label="Name"
+            value={props.name}
+            placeholder={'Enter your name.'}
+            onChangeText={value => props.inputForm({ prop: 'name', value })}
+          />
+        </CardItem>
         <CardItem>
           <Input
             label="Email"
@@ -36,22 +44,20 @@ const LoginScreen = props => {
             onChangeText={value => props.inputForm({ prop: 'password', value })}
           />
         </CardItem>
-        <CardItem>{props.renderMessage(props.message)}</CardItem>
         <Button
           onPressOut={() =>
-            props.submitLogin({
+            props.submitSignup({
               email: props.email,
+              name: props.name,
               password: props.password
             })
           }
         >
           Login
         </Button>
-        <TouchableWithoutFeedback
-          onPressOut={() => props.navigation.navigate('Signup')}
-        >
+        <TouchableWithoutFeedback onPressOut={() => props.navigation.goBack()}>
           <View>
-            <Text style={styles.text}>Not a member yet? Register now!</Text>
+            <Text style={styles.text}>Go back to Login</Text>
           </View>
         </TouchableWithoutFeedback>
       </Card>
@@ -80,4 +86,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default LoginScreen;
+export default SignupScreen;
