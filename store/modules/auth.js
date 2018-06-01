@@ -1,5 +1,6 @@
 import { AsyncStorage } from 'react-native';
 import { api } from '../../api';
+import { validateEmail } from '../../helper/validate';
 
 //types
 
@@ -68,9 +69,14 @@ function submitSignup({ email, name, password }) {
         type: SIGNUP_FAIL,
         payload: 'Please input your information correctly.'
       });
+    } else if (!validateEmail(data.email)) {
+      dispatch({
+        type: SIGNUP_FAIL,
+        payload: 'Inappropriate Email address.'
+      });
     } else {
       api
-        .post('/auth/register', { email, name, password })
+        .post('/auth/register', data)
         .then(response => {
           console.log(response);
           if (response.status === 200) {

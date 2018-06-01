@@ -25,7 +25,7 @@ class Container extends Component {
 
   render() {
     const { email, name, password } = this.props;
-    console.log({ email, name, password });
+
     return <SignupScreen {...this.props} renderMessage={this._renderMessage} />;
   }
 }
