@@ -41,7 +41,7 @@ function submitLogin({ email, password }) {
           if (response.data.token)
             AsyncStorage.setItem('token', response.data.token);
           if (response.data.auth) {
-            dispatch({ type: LOGIN_SUCCESS });
+            dispatch({ type: LOGIN_SUCCESS, payload: response.data.user });
           }
         }
       })
@@ -83,7 +83,7 @@ function submitSignup({ email, name, password }) {
             if (response.data.token)
               AsyncStorage.setItem('token', response.data.token);
             if (response.data.auth) {
-              dispatch({ type: SIGNUP_SUCCESS });
+              dispatch({ type: SIGNUP_SUCCESS, payload: response.data.user });
             }
           }
         })
@@ -113,7 +113,8 @@ const INITIAL_STATE = {
   password: '',
   isLoading: false,
   message: '',
-  isLoggedIn: false
+  isLoggedIn: false,
+  user: {}
 };
 
 //reducer
@@ -125,13 +126,13 @@ function reducer(state = INITIAL_STATE, action) {
     case SUBMIT_LOGIN:
       return applySubmitLogin(state);
     case LOGIN_SUCCESS:
-      return applyLoginSuccess(state);
+      return applyLoginSuccess(state, action.payload);
     case LOGIN_FAIL:
       return applyLoginFail(state, action.payload);
     case SUBMIT_SIGNUP:
       return applySubmitSignup(state);
     case SIGNUP_SUCCESS:
-      return applySignupSuccess(state);
+      return applySignupSuccess(state, action.payload);
     case SIGNUP_FAIL:
       return applySignupFail(state, action.payload);
     case RESET_TOKEN:
@@ -152,14 +153,15 @@ function applySubmitLogin(state) {
   return { ...state, isLoading: true, message: '' };
 }
 
-function applyLoginSuccess(state) {
+function applyLoginSuccess(state, payload) {
   return {
     ...state,
     email: '',
     password: '',
     isLoading: false,
     isLoggedIn: true,
-    message: ''
+    message: '',
+    user: payload
   };
 }
 
@@ -177,7 +179,7 @@ function applySubmitSignup(state) {
   return { ...state, isLoading: true, message: '' };
 }
 
-function applySignupSuccess(state) {
+function applySignupSuccess(state, payload) {
   return {
     ...state,
     email: '',
@@ -185,7 +187,8 @@ function applySignupSuccess(state) {
     name: '',
     isLoading: false,
     isLoggedIn: true,
-    message: ''
+    message: '',
+    user: payload
   };
 }
 
@@ -203,7 +206,8 @@ function applySignupFail(state, payload) {
 function applyResetToken(state) {
   return {
     ...state,
-    isLoggedIn: false
+    isLoggedIn: false,
+    user: {}
   };
 }
 
