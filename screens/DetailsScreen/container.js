@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-
-import ScheduleScreen from './presenter';
+import DetailsScreen from './presenter';
 
 class Container extends Component {
   render() {
-    return <ScheduleScreen {...this.props} />;
+    return <DetailsScreen {...this.props} />;
   }
 }
 

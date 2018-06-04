@@ -3,7 +3,7 @@ import React from 'react';
 import { createBottomTabNavigator } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import ScheduleScreen from '../screens/ScheduleScreen';
+import ScheduleRoute from '../routes/ScheduleRoute';
 import ArchiveScreen from '../screens/ArchiveScreen';
 import UserScreen from '../screens/UserScreen';
 
@@ -12,7 +12,7 @@ import * as variable from '../components/common/variables';
 const MainNavigator = createBottomTabNavigator(
   {
     Schedule: {
-      screen: ScheduleScreen
+      screen: ScheduleRoute
     },
     Archive: {
       screen: ArchiveScreen

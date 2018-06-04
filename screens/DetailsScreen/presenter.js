@@ -2,13 +2,10 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Button } from '../../components/common';
 
-const ScheduleScreen = props => {
+const DetailsScreen = props => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Schedule Screen</Text>
-      <Button onPressOut={() => props.navigation.navigate('Detail')}>
-        Go Detail
-      </Button>
+      <Text style={styles.title}>Details Screen</Text>
     </View>
   );
 };
@@ -25,4 +22,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ScheduleScreen;
+export default DetailsScreen;
