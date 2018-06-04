@@ -78,7 +78,7 @@ function submitSignup({ email, name, password }) {
       api
         .post('/auth/register', data)
         .then(response => {
-          console.log(response);
+          // console.log(response);
           if (response.status === 200) {
             if (response.data.token)
               AsyncStorage.setItem('token', response.data.token);
@@ -88,7 +88,7 @@ function submitSignup({ email, name, password }) {
           }
         })
         .catch(error => {
-          console.log(error.response);
+          // console.log(error.response);
           dispatch({
             type: SIGNUP_FAIL,
             payload: error.response.data

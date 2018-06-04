@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import AuthStack from '../../navigator/AuthStack';
-import MainScreen from '../../screens/MainScreen';
+import MainNavigator from '../../navigator/MainNavigator';
 
 class AppContainer extends Component {
   componentWillReceiveProps(nextProps) {
@@ -12,7 +12,7 @@ class AppContainer extends Component {
   }
 
   _renderScreenByAuth(isLoggedIn) {
-    return isLoggedIn ? <MainScreen /> : <AuthStack />;
+    return isLoggedIn ? <MainNavigator /> : <AuthStack />;
   }
 
   render() {
