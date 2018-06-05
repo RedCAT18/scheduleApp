@@ -3,15 +3,14 @@ import { View, StyleSheet } from 'react-native';
 
 import * as variable from './variables';
 
-const Card = ({ children }) => {
-  return <View style={styles.container}>{children}</View>;
+const Card = props => {
+  return <View style={[styles.container, props.style]}>{props.children}</View>;
 };
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
-    backgroundColor: variable.bgColor,
-    marginBottom: 5
+    padding: 20,
+    backgroundColor: variable.bgColor
   }
 });
 

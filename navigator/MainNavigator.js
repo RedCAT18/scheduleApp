@@ -5,7 +5,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import ScheduleRoute from '../routes/ScheduleRoute';
 import ArchiveScreen from '../screens/ArchiveScreen';
-import UserScreen from '../screens/UserScreen';
+// import UserScreen from '../screens/UserScreen';
+import MainScreen from '../screens/MainScreen';
 
 import * as variable from '../components/common/variables';
 
@@ -18,7 +19,7 @@ const MainNavigator = createBottomTabNavigator(
       screen: ArchiveScreen
     },
     User: {
-      screen: UserScreen
+      screen: MainScreen
     }
   },
   {

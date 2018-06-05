@@ -46,7 +46,7 @@ function submitLogin({ email, password }) {
         }
       })
       .catch(error => {
-        // console.log(error.response);
+        console.log(error);
         dispatch({
           type: LOGIN_FAIL,
           payload: error.response.data
@@ -88,7 +88,8 @@ function submitSignup({ email, name, password }) {
           }
         })
         .catch(error => {
-          // console.log(error.response);
+          console.log(error);
+
           dispatch({
             type: SIGNUP_FAIL,
             payload: error.response.data

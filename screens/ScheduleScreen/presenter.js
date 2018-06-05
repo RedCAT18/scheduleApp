@@ -1,14 +1,37 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { Button } from '../../components/common';
+import {
+  View,
+  ListView,
+  StatusBar,
+  Dimensions,
+  Text,
+  StyleSheet
+} from 'react-native';
+import { Card } from '../../components/common';
+import { Ionicons } from '@expo/vector-icons';
+
+import * as variable from '../../components/common/variables';
+
+const { width, height } = Dimensions.get('window');
 
 const ScheduleScreen = props => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Schedule Screen</Text>
-      <Button onPressOut={() => props.navigation.navigate('Detail')}>
-        Go Detail
-      </Button>
+      <StatusBar translucent />
+      <Card style={styles.card}>
+        <Text style={styles.topText}>{props.user.name}'s Schedule</Text>
+        <Ionicons
+          name={'ios-add-circle-outline'}
+          size={40}
+          color={variable.bgColor}
+        />
+      </Card>
+
+      <ListView
+        enableEmptySections
+        dataSource={props.dataSource}
+        renderRow={props.renderItem}
+      />
     </View>
   );
 };
@@ -19,9 +42,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  title: {
-    fontSize: 24,
-    fontWeight: '600'
+  card: {
+    backgroundColor: variable.baseColor,
+    height: height * 0.1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: width,
+    padding: 20
+  },
+  topText: {
+    color: variable.bgColor,
+    fontSize: 24
   }
 });
 

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { StatusBar } from 'react-native';
 
 import AuthStack from '../../navigator/AuthStack';
 import MainNavigator from '../../navigator/MainNavigator';

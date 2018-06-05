@@ -14,8 +14,9 @@ function loadData() {
     api
       .get('/schedule/show')
       .then(response => {
+        // console.log(response.data);
         if (response.status === 200) {
-          dispatch({ type: LOAD_SUCCESS, payload: response.data.result });
+          dispatch({ type: LOAD_SUCCESS, payload: response.data });
         }
       })
       .catch(error => {
@@ -53,6 +54,7 @@ function applyLoadData(state) {
 }
 
 function applyLoadSuccess(state, payload) {
+  // console.log(payload);
   return {
     ...state,
     isLoading: false,
@@ -66,3 +68,9 @@ function applyLoadFail(state, payload) {
 }
 
 //export
+
+export const actionCreators = {
+  loadData
+};
+
+export default reducer;

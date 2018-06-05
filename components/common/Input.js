@@ -44,7 +44,6 @@ const styles = StyleSheet.create({
   },
   input: {
     color: variable.secondDarkColor,
-    paddingVertical: 5,
     fontSize: 14
   }
 });
