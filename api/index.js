@@ -20,7 +20,7 @@ api.interceptors.request.use(
     if (token) {
       request.headers.Authorization = token;
     }
-    console.log(request);
+    // console.log(request);
     return request;
   },
   error => {

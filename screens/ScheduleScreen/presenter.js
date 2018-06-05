@@ -7,8 +7,8 @@ import {
   Text,
   StyleSheet
 } from 'react-native';
-import { Card } from '../../components/common';
 import { Constants } from 'expo';
+import { Card } from '../../components/common';
 import { Ionicons } from '@expo/vector-icons';
 
 import * as variable from '../../components/common/variables';
@@ -18,11 +18,7 @@ const { width, height } = Dimensions.get('window');
 const ScheduleScreen = props => {
   return (
     <View style={styles.container}>
-      <StatusBar
-        barStyle="light-content"
-        backgroundColor={variable.baseColor}
-        translucent={false}
-      />
+      <StatusBar backgroundColor={variable.baseColor} translucent />
       <Card style={styles.card}>
         <Text style={styles.topText}>{props.user.name}'s Schedule</Text>
         <Ionicons
@@ -49,12 +45,13 @@ const styles = StyleSheet.create({
   },
   card: {
     backgroundColor: variable.baseColor,
-    height: height * 0.1,
+    height: height * 0.12,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     width: width,
-    padding: 20
+    padding: 20,
+    marginTop: Constants.statusBarHeight
   },
   topText: {
     color: variable.bgColor,

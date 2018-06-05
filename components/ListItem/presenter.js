@@ -9,15 +9,16 @@ const { width } = Dimensions.get('window');
 class ListItem extends Component {
   render() {
     const { title, description, location, datetime } = this.props.schedule;
-    console.log(this.props);
+
     return (
       <CardItem>
         <View style={styles.container}>
-          <Text style={styles.title}>{title}</Text>
-          <Text style={styles.description}>{description}</Text>
-          <View style={styles.innerbox}>
-            <Text style={styles.location}>{location}</Text>
-            <Text style={styles.datetime}>{datetime}</Text>
+          <View style={styles.outerbox}>
+            <Text style={styles.title}>{title}</Text>
+            <View style={styles.innerbox}>
+              <Text style={styles.location}>{location}</Text>
+              <Text style={styles.datetime}>{datetime}</Text>
+            </View>
           </View>
         </View>
       </CardItem>
@@ -32,18 +33,24 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontWeight: '600',
-    color: variable.darkColor,
+    color: variable.secondDarkColor,
     marginBottom: 5
   },
-  description: {
-    color: variable.secondDarkColor,
-    fontSize: 16,
-    marginBottom: 10
+  outerbox: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
   },
   innerbox: {
-    flexDirection: 'row',
-    justifyContent: 'space-between'
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    maxWidth: '35%'
+  },
+  location: {
+    color: variable.secondDarkColor
+  },
+  datetime: {
+    color: variable.secondDarkColor
   }
 });
 
