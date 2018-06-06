@@ -20,12 +20,16 @@ const ScheduleScreen = props => {
     <View style={styles.container}>
       <StatusBar backgroundColor={variable.baseColor} translucent />
       <Card style={styles.card}>
-        <Text style={styles.topText}>{props.user.name}'s Schedule</Text>
-        <Ionicons
-          name={'ios-add-circle-outline'}
-          size={40}
-          color={variable.bgColor}
-        />
+        <View style={styles.innerbox}>
+          <Text style={styles.topText}>{props.user.name}'s Schedule</Text>
+        </View>
+        <View style={styles.innerbox}>
+          <Ionicons
+            name={'ios-add-circle-outline'}
+            size={30}
+            color={variable.bgColor}
+          />
+        </View>
       </Card>
 
       <ListView
@@ -48,10 +52,12 @@ const styles = StyleSheet.create({
     height: height * 0.12,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
     width: width,
     padding: 20,
     marginTop: Constants.statusBarHeight
+  },
+  innerbox: {
+    justifyContent: 'center'
   },
   topText: {
     color: variable.bgColor,

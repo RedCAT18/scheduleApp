@@ -6,7 +6,7 @@ import * as variable from '../common/variables';
 
 const { width } = Dimensions.get('window');
 
-class ListItem extends Component {
+class ScheduleItem extends Component {
   render() {
     const { title, description, location, datetime } = this.props.schedule;
 
@@ -54,4 +54,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ListItem;
+export default ScheduleItem;

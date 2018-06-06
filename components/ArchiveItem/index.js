@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import ListItem from './presenter';
+import ArchiveItem from './presenter';
 
-export default connect()(ListItem);
+export default connect()(ArchiveItem);
 // mapStateToProps,

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ListView } from 'react-native';
 
-import ListItem from '../../components/ListItem';
+import ScheduleItem from '../../components/ScheduleItem';
 import ScheduleScreen from './presenter';
 
 class Container extends Component {
@@ -28,7 +28,7 @@ class Container extends Component {
 
   _renderItem(rowData) {
     // console.log(rowData);
-    return <ListItem schedule={rowData} />;
+    return <ScheduleItem schedule={rowData} />;
   }
 
   render() {

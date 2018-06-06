@@ -1,10 +1,36 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import {
+  View,
+  ListView,
+  StatusBar,
+  Dimensions,
+  Text,
+  StyleSheet
+} from 'react-native';
+
+import { Constants } from 'expo';
+import { Card } from '../../components/common';
+
+import * as variable from '../../components/common/variables';
+
+const { width, height } = Dimensions.get('window');
 
 const ArchiveScreen = props => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Archive Screen</Text>
+      <StatusBar
+        varStyle="dark-content"
+        backgroundColor={variable.baseColor}
+        translucent
+      />
+      <Card style={styles.card}>
+        <Text style={styles.topText}>{props.user.name}'s Archive</Text>
+      </Card>
+      <ListView
+        enableEmptySections
+        dataSource={props.dataSource}
+        renderRow={props.renderItem}
+      />
     </View>
   );
 };
@@ -15,9 +41,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  title: {
-    fontSize: 24,
-    fontWeight: '600'
+  card: {
+    backgroundColor: variable.baseColor,
+    height: height * 0.12,
+    alignItems: 'flex-start',
+    width: width,
+    padding: 20,
+    marginTop: Constants.statusBarHeight
+  },
+  topText: {
+    color: variable.bgColor,
+    fontSize: 24
   }
 });
 
