@@ -3,7 +3,7 @@ import UserScreen from './presenter';
 
 class Container extends Component {
   render() {
-    return <UserScreen />;
+    return <UserScreen {...this.props} />;
   }
 }
 
