@@ -5,10 +5,13 @@ import * as variables from './variables';
 
 const { width, height } = Dimensions.get('window');
 
-const Button = ({ onPressOut, children }) => {
+const Button = props => {
   return (
-    <TouchableOpacity onPressOut={onPressOut} style={styles.container}>
-      <Text style={styles.text}>{children}</Text>
+    <TouchableOpacity
+      onPressOut={props.onPressOut}
+      style={[styles.container, props.style]}
+    >
+      <Text style={styles.text}>{props.children}</Text>
     </TouchableOpacity>
   );
 };

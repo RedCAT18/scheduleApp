@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     marginVertical: 20
   },
   descarea: {
-    minHeight: 100
+    minHeight: 60
   },
   detailtext: {
     fontSize: 16,
