@@ -24,7 +24,11 @@ const UserScreen = props => {
           colors={[variable.baseColor, variable.darkColor]}
           style={styles.gradient}
         >
-          <Text style={styles.logout}>Log out</Text>
+          <TouchableWithoutFeedback onPressOut={() => props.logout()}>
+            <View>
+              <Text style={styles.logout}>Log out</Text>
+            </View>
+          </TouchableWithoutFeedback>
         </LinearGradient>
       </View>
       <View style={styles.lowerbox}>

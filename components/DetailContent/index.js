@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import ScheduleItem from './presenter';
+import DetailContent from './presenter';
 
-export default connect()(ScheduleItem);
+export default connect()(DetailContent);

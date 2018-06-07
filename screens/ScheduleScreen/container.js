@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ListView } from 'react-native';
+import { ListView, TouchableWithoutFeedback } from 'react-native';
 
 import ScheduleItem from '../../components/ScheduleItem';
 import ScheduleScreen from './presenter';
@@ -15,7 +15,7 @@ class Container extends Component {
     const currentProps = this.props;
     if (currentProps.isLoggedIn !== nextProps.isLoggedIn) {
       this.props.loadData();
-      this._createDataSource(this.props);
+      this._createDataSource(this.props.schedule);
     }
   }
 
@@ -27,7 +27,6 @@ class Container extends Component {
   }
 
   _renderItem(rowData) {
-    // console.log(rowData);
     return <ScheduleItem schedule={rowData} />;
   }
 

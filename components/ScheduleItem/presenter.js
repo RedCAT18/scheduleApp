@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Dimensions
+} from 'react-native';
 import { CardItem } from '../common';
+import { withNavigation } from 'react-navigation';
 
 import * as variable from '../common/variables';
 
@@ -11,17 +18,23 @@ class ScheduleItem extends Component {
     const { title, description, location, datetime } = this.props.schedule;
 
     return (
-      <CardItem>
-        <View style={styles.container}>
-          <View style={styles.outerbox}>
-            <Text style={styles.title}>{title}</Text>
-            <View style={styles.innerbox}>
-              <Text style={styles.location}>{location}</Text>
-              <Text style={styles.datetime}>{datetime}</Text>
+      <TouchableOpacity
+        onPressOut={() =>
+          this.props.navigation.navigate('Detail', this.props.schedule)
+        }
+      >
+        <CardItem>
+          <View style={styles.container}>
+            <View style={styles.outerbox}>
+              <Text style={styles.title}>{title}</Text>
+              <View style={styles.innerbox}>
+                <Text style={styles.location}>{location}</Text>
+                <Text style={styles.datetime}>{datetime}</Text>
+              </View>
             </View>
           </View>
-        </View>
-      </CardItem>
+        </CardItem>
+      </TouchableOpacity>
     );
   }
 }
@@ -54,4 +67,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ScheduleItem;
+export default withNavigation(ScheduleItem);

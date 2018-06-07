@@ -9,10 +9,10 @@ const SUBMIT_LOGIN = 'submit_login';
 const LOGIN_SUCCESS = 'login_success';
 const LOGIN_FAIL = 'login_fail';
 const SUBMIT_SIGNUP = 'submit_signup';
-const SIGNUP_SUCCESS = 'submit_success';
-const SIGNUP_FAIL = 'submit_fail';
+const SIGNUP_SUCCESS = 'signup_success';
+const SIGNUP_FAIL = 'signup_fail';
+const SUBMIT_LOGOUT = 'submit_logout';
 
-const RESET_TOKEN = 'reset_token';
 const RESET_STATE = 'reset_state';
 
 //action creator
@@ -99,10 +99,10 @@ function submitSignup({ email, name, password }) {
   };
 }
 
-function resetToken() {
+function submitLogout() {
   AsyncStorage.removeItem('token');
   return {
-    type: RESET_TOKEN
+    type: SUBMIT_LOGOUT
   };
 }
 
@@ -136,10 +136,10 @@ function reducer(state = INITIAL_STATE, action) {
       return applySignupSuccess(state, action.payload);
     case SIGNUP_FAIL:
       return applySignupFail(state, action.payload);
-    case RESET_TOKEN:
-      return applyResetToken(state);
     case RESET_STATE:
       return INITIAL_STATE;
+    case SUBMIT_LOGOUT:
+      return applySubmitLogout(state);
     default:
       return state;
   }
@@ -204,7 +204,7 @@ function applySignupFail(state, payload) {
   };
 }
 
-function applyResetToken(state) {
+function applySubmitLogout(state) {
   return {
     ...state,
     isLoggedIn: false,
@@ -216,7 +216,7 @@ export const actionCreators = {
   inputForm,
   submitLogin,
   submitSignup,
-  resetToken,
+  submitLogout,
   resetState
 };
 

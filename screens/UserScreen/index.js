@@ -10,7 +10,13 @@ function mapStateToProps(state) {
   return { isLoggedIn, user };
 }
 
+function mapDispatchToProps(dispatch) {
+  return {
+    logout: bindActionCreators(userAction.submitLogout, dispatch)
+  };
+}
+
 export default connect(
   mapStateToProps,
-  {}
+  mapDispatchToProps
 )(Container);

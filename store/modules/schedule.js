@@ -20,7 +20,9 @@ function loadData() {
         }
       })
       .catch(error => {
-        dispatch({ type: LOAD_FAIL, payload: error.response.data });
+        // console.log(error);
+        const msg = error.response.data || 'Network Error.';
+        dispatch({ type: LOAD_FAIL, payload: msg });
       });
   };
 }

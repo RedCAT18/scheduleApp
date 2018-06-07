@@ -1,13 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Button } from '../../components/common';
+import DetailContent from '../../components/DetailContent';
 
 const DetailsScreen = props => {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Details Screen</Text>
-    </View>
-  );
+  const params = props.navigation.state.params;
+  return <DetailContent {...params} />;
 };
 
 const styles = StyleSheet.create({
