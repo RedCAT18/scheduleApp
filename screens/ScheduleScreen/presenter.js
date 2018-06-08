@@ -5,6 +5,7 @@ import {
   StatusBar,
   Dimensions,
   Text,
+  TouchableWithoutFeedback,
   StyleSheet
 } from 'react-native';
 import { Constants } from 'expo';
@@ -23,13 +24,20 @@ const ScheduleScreen = props => {
         <View style={styles.innerbox}>
           <Text style={styles.topText}>{props.user.name}'s Schedule</Text>
         </View>
-        <View style={styles.innerbox}>
+        <TouchableWithoutFeedback
+          style={styles.innerbox}
+          onPressOut={() =>
+            props.navigation.navigate('Add', {
+              screenTitle: 'New Schedule'
+            })
+          }
+        >
           <Ionicons
             name={'ios-add-circle-outline'}
             size={30}
             color={variable.bgColor}
           />
-        </View>
+        </TouchableWithoutFeedback>
       </Card>
 
       <ListView

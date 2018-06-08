@@ -5,6 +5,7 @@ import storage from 'redux-persist/lib/storage';
 
 import auth from './modules/auth';
 import schedule from './modules/schedule';
+import form from './modules/form';
 
 const middlewares = [thunk];
 
@@ -13,7 +14,7 @@ const persistConfig = {
   storage
 };
 
-const reducer = persistCombineReducers(persistConfig, { auth, schedule });
+const reducer = persistCombineReducers(persistConfig, { auth, schedule, form });
 
 const configurationStore = () => {
   let store = createStore(reducer, applyMiddleware(...middlewares));

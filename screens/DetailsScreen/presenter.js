@@ -8,7 +8,6 @@ const { width, height } = Dimensions.get('window');
 
 const DetailsScreen = props => {
   const params = props.navigation.state.params;
-
   return (
     <ScrollView>
       <DetailContent {...params} />

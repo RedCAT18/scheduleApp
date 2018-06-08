@@ -3,7 +3,8 @@ import { createStackNavigator } from 'react-navigation';
 
 import * as variable from '../components/common/variables';
 import ScheduleScreen from '../screens/ScheduleScreen';
-import DetailsScreen from '../screens/DetailsScreen';
+import DetailRoute from '../routes/DetailRoute';
+import FormScreen from '../screens/FormScreen';
 
 const ScheduleRoute = createStackNavigator(
   {
@@ -14,7 +15,16 @@ const ScheduleRoute = createStackNavigator(
       }
     },
     Detail: {
-      screen: DetailsScreen,
+      screen: DetailRoute,
+      navigationOptions: {
+        headerStyle: {
+          backgroundColor: variable.baseColor
+        },
+        headerTintColor: variable.bgColor
+      }
+    },
+    Add: {
+      screen: FormScreen,
       navigationOptions: {
         headerStyle: {
           backgroundColor: variable.baseColor

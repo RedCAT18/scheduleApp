@@ -9,6 +9,7 @@ const Input = ({
   value,
   placeholder,
   multiline,
+  numberOfLines = 1,
   secureTextEntry = false,
   onChangeText
 }) => {
@@ -17,6 +18,7 @@ const Input = ({
       <Text style={styles.label}>{label}</Text>
       <TextInput
         multiline={multiline}
+        numberOfLines={numberOfLines}
         secureTextEntry={secureTextEntry}
         value={value}
         style={styles.input}
