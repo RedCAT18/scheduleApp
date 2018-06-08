@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import {
+  TouchableOpacity,
+  View,
+  Text,
+  StyleSheet,
+  Dimensions
+} from 'react-native';
 import { CardItem } from '../common';
 import { Ionicons } from '@expo/vector-icons';
 
 import * as variable from '../common/variables';
+import { withNavigation } from 'react-navigation';
 
 const { width } = Dimensions.get('window');
 
@@ -19,12 +26,18 @@ class ArchiveItem extends Component {
     const { title } = this.props.archive;
 
     return (
-      <CardItem>
-        <View style={styles.container}>
-          <Text style={styles.title}>{title}</Text>
-          {this._renderIcon()}
-        </View>
-      </CardItem>
+      <TouchableOpacity
+        onPressOut={() =>
+          this.props.navigation.navigate('Detail', this.props.archive)
+        }
+      >
+        <CardItem>
+          <View style={styles.container}>
+            <Text style={styles.title}>{title}</Text>
+            {this._renderIcon()}
+          </View>
+        </CardItem>
+      </TouchableOpacity>
     );
   }
 }
@@ -43,4 +56,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ArchiveItem;
+export default withNavigation(ArchiveItem);

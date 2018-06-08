@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import ScheduleRoute from '../routes/ScheduleRoute';
-import ArchiveScreen from '../screens/ArchiveScreen';
+import ArchiveRoute from '../routes/ArchiveRoute';
 import UserScreen from '../screens/UserScreen';
 // import MainScreen from '../screens/MainScreen';
 
@@ -16,7 +16,7 @@ const MainNavigator = createBottomTabNavigator(
       screen: ScheduleRoute
     },
     Archive: {
-      screen: ArchiveScreen
+      screen: ArchiveRoute
     },
     User: {
       screen: UserScreen

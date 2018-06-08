@@ -12,13 +12,17 @@ const DetailsScreen = props => {
     <ScrollView>
       <DetailContent {...params} />
       {params.status === 'ONGOING' ? (
-        <View>
+        <View style={styles.buttonarea}>
           <Button style={styles.button}>Edit</Button>
           <Button style={styles.button}>Complete</Button>
           <Button style={[styles.button, styles.grey]}>Drop</Button>
         </View>
       ) : (
-        <Button style={[styles.button, styles.grey]}>Delete</Button>
+        <View style={styles.buttonarea}>
+          <Button style={[styles.button, styles.grey, styles.delete]}>
+            Delete
+          </Button>
+        </View>
       )}
     </ScrollView>
   );
@@ -31,10 +35,17 @@ const styles = StyleSheet.create({
   },
   button: {
     marginHorizontal: 10,
-    marginBottom: 5
+    marginBottom: 5,
+    width: width * 0.8
+  },
+  buttonarea: {
+    alignItems: 'center'
   },
   grey: {
     backgroundColor: variable.secondDarkColor
+  },
+  delete: {
+    marginTop: 80
   }
 });
 

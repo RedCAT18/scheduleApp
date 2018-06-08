@@ -15,7 +15,7 @@ const { width } = Dimensions.get('window');
 
 class ScheduleItem extends Component {
   render() {
-    const { title, description, location, datetime } = this.props.schedule;
+    const { title, location, datetime } = this.props.schedule;
 
     return (
       <TouchableOpacity
