@@ -3,4 +3,8 @@ function validateEmail(email) {
   return regExp.test(email);
 }
 
-export { validateEmail };
+function validatePassword(p1, p2) {
+  return p1 === p2 ? true : false;
+}
+
+export { validateEmail, validatePassword };

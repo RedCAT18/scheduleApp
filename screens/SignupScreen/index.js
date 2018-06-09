@@ -5,9 +5,25 @@ import { bindActionCreators } from 'redux';
 import { actionCreators as authActions } from '../../store/modules/auth';
 
 function mapStateToProps(state) {
-  const { email, password, name, isLoading, message, isLoggedIn } = state.auth;
+  const {
+    email,
+    password,
+    passwordcheck,
+    name,
+    isLoading,
+    message,
+    isLoggedIn
+  } = state.auth;
 
-  return { email, password, name, isLoading, message, isLoggedIn };
+  return {
+    email,
+    password,
+    passwordcheck,
+    name,
+    isLoading,
+    message,
+    isLoggedIn
+  };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -18,4 +34,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Container);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Container);

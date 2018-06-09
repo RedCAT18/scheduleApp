@@ -15,7 +15,8 @@ const styles = StyleSheet.create({
   container: {
     borderBottomWidth: 1,
     borderBottomColor: variable.secondLightColor,
-    padding: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
     backgroundColor: variable.bgColor
   }
 });

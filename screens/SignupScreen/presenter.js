@@ -46,6 +46,19 @@ const SignupScreen = props => {
             onChangeText={value => props.inputForm({ prop: 'password', value })}
           />
         </CardItem>
+        <CardItem>
+          <Input
+            label="Password Check"
+            secureTextEntry={true}
+            value={props.passwordcheck}
+            placeholder={'Please write password again.'}
+            placeholderTextColor={variable.secondLightColor}
+            onChangeText={value =>
+              props.inputForm({ prop: 'passwordcheck', value })
+            }
+          />
+        </CardItem>
+
         <CardItem>{props.renderMessage(props.message)}</CardItem>
         <Button
           onPressOut={() =>

@@ -1,6 +1,6 @@
 import { AsyncStorage } from 'react-native';
 import { api } from '../../api';
-import { validateEmail } from '../../helper/validate';
+import { validateEmail, validatePassword } from '../../helper/validate';
 
 //types
 
@@ -69,6 +69,11 @@ function submitSignup({ email, name, password }) {
         type: SIGNUP_FAIL,
         payload: 'Please input your information correctly.'
       });
+    } else if (!validatePassword(data.password, data.passwordcheck)) {
+      dispatch({
+        type: SIGNUP_FAIL,
+        payload: 'Both password input are not the same.'
+      });
     } else if (!validateEmail(data.email)) {
       dispatch({
         type: SIGNUP_FAIL,
@@ -112,6 +117,7 @@ const INITIAL_STATE = {
   name: '',
   email: '',
   password: '',
+  passwordcheck: '',
   isLoading: false,
   message: '',
   isLoggedIn: false,
