@@ -24,7 +24,7 @@ const UserScreen = props => {
           colors={[variable.baseColor, variable.darkColor]}
           style={styles.gradient}
         >
-          <TouchableWithoutFeedback onPressOut={() => props.logout()}>
+          <TouchableWithoutFeedback onPressOut={() => props.submitLogout()}>
             <View>
               <Text style={styles.logout}>Log out</Text>
             </View>
@@ -120,13 +120,13 @@ const styles = StyleSheet.create({
   },
   avatar: {
     height: 100,
-    width: 100,
+    width: 200,
     justifyContent: 'center',
     alignItems: 'center',
     position: 'relative'
   },
   image: {
-    width: '100%',
+    width: 100,
     height: '100%',
     borderRadius: 50,
     position: 'absolute',

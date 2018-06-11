@@ -31,11 +31,20 @@ const ScheduleRoute = createStackNavigator(
         },
         headerTintColor: variable.bgColor
       }
+    },
+    Edit: {
+      screen: FormScreen,
+      navigationOptions: {
+        headerStyle: {
+          backgroundColor: variable.baseColor
+        },
+        headerTintColor: variable.bgColor
+      }
     }
   },
   {
     initialRouteName: 'Schedule'
   }
 );
-
+[];
 export default ScheduleRoute;

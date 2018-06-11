@@ -21,8 +21,23 @@ class Container extends Component {
     };
   };
 
+  componentWillMount() {
+    if (this.props.navigation.state.routeName === 'Edit') {
+      this.props.setParamsToForm(this.props.navigation.state.params);
+    }
+  }
+
+  _addSchedule(props) {
+    return this.props.createSchedule(props);
+  }
+
   render() {
-    return <FormScreen {...this.props} />;
+    return (
+      <FormScreen
+        {...this.props}
+        addSchedule={() => this._addSchedule(this.props)}
+      />
+    );
   }
 }
 

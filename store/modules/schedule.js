@@ -1,10 +1,14 @@
 //import
 import { api } from '../../api';
 
+import { AsyncStorage } from 'react-native';
+import storage from 'redux-persist/es/storage';
+
 //types
 const LOAD_DATA = 'load_data';
 const LOAD_SUCCESS = 'load_success';
 const LOAD_FAIL = 'load_fail';
+const INITIALISE = 'initialise';
 
 //action creators
 
@@ -20,10 +24,16 @@ function loadData() {
         }
       })
       .catch(error => {
-        // console.log(error);
+        console.log(error);
         const msg = error.response.data || 'Network Error.';
         dispatch({ type: LOAD_FAIL, payload: msg });
       });
+  };
+}
+
+function initialiseData() {
+  return {
+    type: INITIALISE
   };
 }
 
@@ -45,6 +55,8 @@ function reducer(state = INITIAL_STATE, action) {
       return applyLoadSuccess(state, action.payload);
     case LOAD_FAIL:
       return applyLoadFail(state, action.payload);
+    case INITIALISE:
+      return applyInitialise(state);
     default:
       return state;
   }
@@ -56,23 +68,27 @@ function applyLoadData(state) {
 }
 
 function applyLoadSuccess(state, payload) {
-  // console.log(payload);
   return {
     ...state,
-    isLoading: false,
-    schedule: payload.schedule,
-    archive: payload.archive
+    ...INITIAL_STATE,
+    schedule: payload.schedule || [],
+    archive: payload.archive || []
   };
 }
 
 function applyLoadFail(state, payload) {
-  return { ...state, isLoading: false, message: '' };
+  return { ...state, isLoading: false, message: payload };
+}
+
+function applyInitialise(state) {
+  return { ...state, ...INITIAL_STATE };
 }
 
 //export
 
 export const actionCreators = {
-  loadData
+  loadData,
+  initialiseData
 };
 
 export default reducer;

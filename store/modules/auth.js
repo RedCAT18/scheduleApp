@@ -1,6 +1,7 @@
 import { AsyncStorage } from 'react-native';
 import { api } from '../../api';
 import { validateEmail, validatePassword } from '../../helper/validate';
+import storage from 'redux-persist/lib/storage';
 
 //types
 
@@ -105,7 +106,6 @@ function submitSignup({ email, name, password }) {
 }
 
 function submitLogout() {
-  AsyncStorage.removeItem('token');
   return {
     type: SUBMIT_LOGOUT
   };
@@ -211,6 +211,8 @@ function applySignupFail(state, payload) {
 }
 
 function applySubmitLogout(state) {
+  AsyncStorage.removeItem('token');
+  storage.removeItem('persist:scheduleApp');
   return {
     ...state,
     isLoggedIn: false,

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { actionCreators as userAction } from '../../store/modules/auth';
+import { actionCreators as scheduleAction } from '../../store/modules/schedule';
 
 function mapStateToProps(state) {
   const { isLoggedIn, user } = state.auth;
@@ -12,7 +13,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    logout: bindActionCreators(userAction.submitLogout, dispatch)
+    submitLogout: bindActionCreators(userAction.submitLogout, dispatch)
   };
 }
 

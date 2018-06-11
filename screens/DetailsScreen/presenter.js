@@ -13,7 +13,17 @@ const DetailsScreen = props => {
       <DetailContent {...params} />
       {params.status === 'ONGOING' ? (
         <View style={styles.buttonarea}>
-          <Button style={styles.button}>Edit</Button>
+          <Button
+            style={styles.button}
+            onPressOut={() =>
+              props.navigation.navigate('Edit', {
+                screenTitle: 'Edit Schedule',
+                ...params
+              })
+            }
+          >
+            Edit
+          </Button>
           <Button style={styles.button}>Complete</Button>
           <Button style={[styles.button, styles.grey]}>Drop</Button>
         </View>

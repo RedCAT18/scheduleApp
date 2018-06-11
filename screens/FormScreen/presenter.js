@@ -15,7 +15,6 @@ import * as variable from '../../components/common/variables';
 const { width, height } = Dimensions.get('window');
 
 const FormScreen = props => {
-  console.log(props);
   return (
     <KeyboardAvoidingView behavior="padding">
       <ScrollView>
@@ -51,12 +50,12 @@ const FormScreen = props => {
             customStyles={{
               placeholderText: { color: variable.secondColor }
             }}
-            onDateChange={value =>
-              this.props.inputForm({ prop: 'datetime', value })
-            }
+            onDateChange={value => props.inputForm({ prop: 'datetime', value })}
           />
           <View style={styles.buttonarea}>
-            <Button style={styles.button}>Add Schedule</Button>
+            <Button style={styles.button} onPressOut={props.addSchedule}>
+              Add Schedule
+            </Button>
           </View>
         </View>
       </ScrollView>

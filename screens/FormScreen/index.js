@@ -11,17 +11,16 @@ function mapStateToProps(state) {
     location,
     datetime,
     status,
-    user,
-    created_at
+    created_at,
+    uid
   } = state.form;
-  const { uid } = state.auth.user;
+
   return {
     title,
     description,
     location,
     datetime,
     status,
-    user,
     created_at,
     uid
   };
@@ -30,7 +29,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     createSchedule: bindActionCreators(formActions.createSchedule, dispatch),
-    inputForm: bindActionCreators(formActions.inputForm, dispatch)
+    inputForm: bindActionCreators(formActions.inputForm, dispatch),
+    setParamsToForm: bindActionCreators(formActions.setParamsToForm, dispatch)
   };
 }
 
