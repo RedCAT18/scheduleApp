@@ -53,7 +53,7 @@ const FormScreen = props => {
             onDateChange={value => props.inputForm({ prop: 'datetime', value })}
           />
           <View style={styles.buttonarea}>
-            <Button style={styles.button} onPressOut={props.addSchedule}>
+            <Button style={styles.button} onPressOut={props.saveSchedule}>
               Add Schedule
             </Button>
           </View>

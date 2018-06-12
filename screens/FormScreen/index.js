@@ -28,9 +28,12 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    createSchedule: bindActionCreators(formActions.createSchedule, dispatch),
+    saveSchedule: bindActionCreators(formActions.saveSchedule, dispatch),
     inputForm: bindActionCreators(formActions.inputForm, dispatch),
-    setParamsToForm: bindActionCreators(formActions.setParamsToForm, dispatch)
+    setParamsToUpdate: bindActionCreators(
+      formActions.setParamsToUpdate,
+      dispatch
+    )
   };
 }
 

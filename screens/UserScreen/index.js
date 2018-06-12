@@ -13,7 +13,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    submitLogout: bindActionCreators(userAction.submitLogout, dispatch)
+    submitLogout: bindActionCreators(userAction.submitLogout, dispatch),
+    resetStorage: bindActionCreators(scheduleAction.resetStorage, dispatch)
   };
 }
 

@@ -12,6 +12,12 @@ class Container extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    const params = nextProps.navigation.state.params || null;
+
+    if (params && params.updated) {
+      this.props.loadData();
+      params.updated = false;
+    }
     this._createDataSource(nextProps.schedule);
   }
 

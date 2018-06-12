@@ -7,7 +7,13 @@ class Container extends Component {
   };
 
   render() {
-    return <DetailsScreen {...this.props} />;
+    return (
+      <DetailsScreen
+        {...this.props}
+        scheduleDone={() => this.props.updateStatus(this.props, 'DONE')}
+        scheduleDrop={() => this.props.updateStatus(this.props, 'DROP')}
+      />
+    );
   }
 }
 

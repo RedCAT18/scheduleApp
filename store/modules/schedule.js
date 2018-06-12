@@ -8,7 +8,7 @@ import storage from 'redux-persist/es/storage';
 const LOAD_DATA = 'load_data';
 const LOAD_SUCCESS = 'load_success';
 const LOAD_FAIL = 'load_fail';
-const INITIALISE = 'initialise';
+const RESET_STORAGE = 'reset_storage';
 
 //action creators
 
@@ -31,9 +31,10 @@ function loadData() {
   };
 }
 
-function initialiseData() {
+function resetStorage() {
+  storage.removeItem('persist:scheduleApp');
   return {
-    type: INITIALISE
+    type: RESET_STORAGE
   };
 }
 
@@ -55,8 +56,8 @@ function reducer(state = INITIAL_STATE, action) {
       return applyLoadSuccess(state, action.payload);
     case LOAD_FAIL:
       return applyLoadFail(state, action.payload);
-    case INITIALISE:
-      return applyInitialise(state);
+    case RESET_STORAGE:
+      return applyResetStorage(state);
     default:
       return state;
   }
@@ -80,7 +81,7 @@ function applyLoadFail(state, payload) {
   return { ...state, isLoading: false, message: payload };
 }
 
-function applyInitialise(state) {
+function applyResetStorage(state) {
   return { ...state, ...INITIAL_STATE };
 }
 
@@ -88,7 +89,7 @@ function applyInitialise(state) {
 
 export const actionCreators = {
   loadData,
-  initialiseData
+  resetStorage
 };
 
 export default reducer;

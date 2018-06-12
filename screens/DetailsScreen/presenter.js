@@ -24,8 +24,15 @@ const DetailsScreen = props => {
           >
             Edit
           </Button>
-          <Button style={styles.button}>Complete</Button>
-          <Button style={[styles.button, styles.grey]}>Drop</Button>
+          <Button style={styles.button} onPressOut={props.scheduleDone}>
+            Complete
+          </Button>
+          <Button
+            style={[styles.button, styles.grey]}
+            onPressOut={props.scheduleDrop}
+          >
+            Drop
+          </Button>
         </View>
       ) : (
         <View style={styles.buttonarea}>

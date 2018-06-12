@@ -12,11 +12,7 @@ class Container extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const currentProps = this.props;
-    if (currentProps.isLoggedIn !== nextProps.isLoggedIn) {
-      this.props.loadData();
-      this._createDataSource(this.props.archive);
-    }
+    this._createDataSource(nextProps.archive);
   }
 
   _createDataSource(archive) {

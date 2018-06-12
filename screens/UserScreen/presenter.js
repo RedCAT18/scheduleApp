@@ -24,7 +24,7 @@ const UserScreen = props => {
           colors={[variable.baseColor, variable.darkColor]}
           style={styles.gradient}
         >
-          <TouchableWithoutFeedback onPressOut={() => props.submitLogout()}>
+          <TouchableWithoutFeedback onPressOut={props.setLogout}>
             <View>
               <Text style={styles.logout}>Log out</Text>
             </View>

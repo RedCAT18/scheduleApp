@@ -2,11 +2,11 @@
 
 import { api } from '../../api';
 
-const CREATE_SCHEDULE = 'create_schedule';
+const SAVE_SCHEDULE = 'save_schedule';
 const INPUT_FORM = 'input_form';
 
-const CREATE_SUCCESS = 'create_success';
-const CREATE_FAIL = 'create_fail';
+const SAVE_SUCCESS = 'save_success';
+const SAVE_FAIL = 'save_fail';
 
 const SET_PARAMS = 'set_params';
 
@@ -18,58 +18,91 @@ function inputForm({ prop, value }) {
   };
 }
 
-function createSchedule(data) {
+function saveSchedule(data) {
   const schedule = {
     title: data.title,
     description: data.description,
     location: data.location,
     datetime: data.datetime,
+    status: data.status,
     uid: data.uid || null
   };
+  // console.log(schedule);
   return dispatch => {
-    dispatch(startCreate());
+    dispatch(startSave());
     if (schedule.title.length === 0) {
-      dispatch(createFail('You must enter schedule title.'));
+      dispatch(saveFail('You must enter schedule title.'));
     } else {
       api
         .post('/schedule/save', schedule)
         .then(response => {
           if (response.status === 200) {
-            dispatch(createSuccess());
-            data.navigation.navigate('Schedule');
+            dispatch(saveSuccess());
+            data.navigation.navigate('Schedule', { updated: true });
           } else {
-            dispatch(createFail(response.data));
+            dispatch(saveFail(response.data));
           }
         })
         .catch(err => {
           console.log(err);
           const message = err.response.data || 'NETWORK ERROR.';
-          dispatch(createFail(message));
+          dispatch(saveFail(message));
         });
     }
   };
 }
 
-function startCreate() {
-  return {
-    type: CREATE_SCHEDULE
+function updateStatus(data, newStatus) {
+  const originalData = data.navigation.state.params;
+  const updatedData = {
+    title: originalData.title,
+    description: originalData.description,
+    location: originalData.location,
+    datetime: originalData.datetime,
+    status: newStatus,
+    uid: originalData.uid
+  };
+
+  return dispatch => {
+    dispatch(startSave());
+    api
+      .post('/schedule/save', updatedData)
+      .then(response => {
+        if (response.status === 200) {
+          dispatch(saveSuccess());
+          data.navigation.navigate('Schedule', { updated: true });
+        } else {
+          dispatch(saveFail(response.data));
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        const message = err.response.data || 'NETWORK ERROR';
+        dispatch(saeFail(message));
+      });
   };
 }
 
-function createSuccess() {
+function startSave() {
   return {
-    type: CREATE_SUCCESS
+    type: SAVE_SCHEDULE
   };
 }
 
-function createFail(message) {
+function saveSuccess() {
   return {
-    type: CREATE_FAIL,
+    type: SAVE_SUCCESS
+  };
+}
+
+function saveFail(message) {
+  return {
+    type: SAVE_FAIL,
     payload: message
   };
 }
 
-function setParamsToForm(params) {
+function setParamsToUpdate(params) {
   return {
     type: SET_PARAMS,
     payload: params
@@ -95,14 +128,14 @@ function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case INPUT_FORM:
       return applyInputForm(state, action.payload);
-    case CREATE_SCHEDULE:
-      return applyCreateSchedule(state);
-    case CREATE_SUCCESS:
-      return applyCreateSuccess(state);
-    case CREATE_FAIL:
-      return applyCreateFail(state, action.payload);
+    case SAVE_SCHEDULE:
+      return applySaveSchedule(state);
+    case SAVE_SUCCESS:
+      return applySaveSuccess(state);
+    case SAVE_FAIL:
+      return applySaveFail(state, action.payload);
     case SET_PARAMS:
-      return applySetParamsToForm(state, action.payload);
+      return applySetParamsToUpdate(state, action.payload);
     default:
       return state;
   }
@@ -114,24 +147,25 @@ function applyInputForm(state, payload) {
   return { ...state, [payload.prop]: payload.value };
 }
 
-function applyCreateSchedule(state) {
+function applySaveSchedule(state) {
   return { ...state, isSaving: true, message: '' };
 }
 
-function applyCreateSuccess(state) {
+function applySaveSuccess(state) {
   return { ...state, ...INITIAL_STATE };
 }
 
-function applyCreateFail(state, payload) {
+function applySaveFail(state, payload) {
   return { ...state, isSaving: false, message: payload };
 }
 
-function applySetParamsToForm(state, payload) {
+function applySetParamsToUpdate(state, payload) {
+  console.log(payload);
   return {
     ...state,
     title: payload.title,
     description: payload.description,
-    location: payload.datetime,
+    location: payload.location,
     datetime: payload.datetime,
     status: payload.status,
     uid: payload.uid,
@@ -143,8 +177,9 @@ function applySetParamsToForm(state, payload) {
 
 export const actioncreators = {
   inputForm,
-  createSchedule,
-  setParamsToForm
+  saveSchedule,
+  setParamsToUpdate,
+  updateStatus
 };
 
 export default reducer;
