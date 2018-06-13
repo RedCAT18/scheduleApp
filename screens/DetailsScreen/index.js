@@ -28,7 +28,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    updateStatus: bindActionCreators(formActions.updateStatus, dispatch)
+    updateStatus: bindActionCreators(formActions.updateStatus, dispatch),
+    confirmDelete: bindActionCreators(formActions.deleteSchedule, dispatch)
   };
 }
 

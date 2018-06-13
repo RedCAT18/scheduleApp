@@ -53,14 +53,14 @@ function saveSchedule(data) {
 }
 
 function updateStatus(data, newStatus) {
-  const originalData = data.navigation.state.params;
+  const { params } = data.navigation.state;
   const updatedData = {
-    title: originalData.title,
-    description: originalData.description,
-    location: originalData.location,
-    datetime: originalData.datetime,
+    title: params.title,
+    description: params.description,
+    location: params.location,
+    datetime: params.datetime,
     status: newStatus,
-    uid: originalData.uid
+    uid: params.uid
   };
 
   return dispatch => {
@@ -106,6 +106,30 @@ function setParamsToUpdate(params) {
   return {
     type: SET_PARAMS,
     payload: params
+  };
+}
+
+function deleteSchedule(data) {
+  const { params } = data.navigation.state;
+  const uid = params.uid;
+
+  return dispatch => {
+    dispatch(startSave());
+    api
+      .post('/schedule/delete', { uid })
+      .then(response => {
+        if (response.status === 200) {
+          dispatch(saveSuccess());
+          data.navigation.navigate('Archive', { updated: true });
+        } else {
+          dispatch(saveFail(response.data));
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        const message = err.response.data || 'NETWORK ERROR';
+        dispatch(saveFail(message));
+      });
   };
 }
 
@@ -179,7 +203,8 @@ export const actioncreators = {
   inputForm,
   saveSchedule,
   setParamsToUpdate,
-  updateStatus
+  updateStatus,
+  deleteSchedule
 };
 
 export default reducer;

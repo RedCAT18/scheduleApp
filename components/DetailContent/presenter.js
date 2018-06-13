@@ -6,6 +6,11 @@ const { width, height } = Dimensions.get('window');
 
 const DetailContent = props => {
   const { title, description, location, datetime, created_at } = props;
+
+  function _setDateFormat(unformedDate) {
+    return unformedDate.substr(0, 10) + ' ' + unformedDate.substr(11, 5);
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
@@ -15,7 +20,9 @@ const DetailContent = props => {
       <Text style={styles.detailtext}>{location}</Text>
       <Text style={styles.detailtext}>{datetime}</Text>
       <View style={styles.bottomarea}>
-        <Text style={styles.smalltext}>{created_at}</Text>
+        <Text style={styles.smalltext}>
+          Registered at {_setDateFormat(created_at)}
+        </Text>
       </View>
     </View>
   );
