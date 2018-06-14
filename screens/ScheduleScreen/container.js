@@ -7,7 +7,7 @@ import ScheduleScreen from './presenter';
 class Container extends Component {
   componentWillMount() {
     this.props.loadData();
-    // console.log(this.props.schedule);
+
     this._createDataSource(this.props.schedule);
   }
 

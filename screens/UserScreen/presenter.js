@@ -57,15 +57,28 @@ const UserScreen = props => {
             <View style={styles.submenu}>
               <View style={styles.submenubox}>
                 <Text style={styles.subtext}>Total</Text>
-                <Text style={styles.subtext}> 24 (100%)</Text>
+                <Text style={styles.subtext}>
+                  {' '}
+                  {props.statistics[0]} (100%)
+                </Text>
               </View>
               <View style={styles.submenubox}>
                 <Text style={styles.subtext}>Completed</Text>
-                <Text style={styles.subtext}> 16 (66.7%)</Text>
+                <Text style={styles.subtext}>
+                  {' '}
+                  {props.statistics[1]} ({(props.statistics[1] /
+                    props.statistics[0]) *
+                    100}%)
+                </Text>
               </View>
               <View style={styles.submenubox}>
                 <Text style={styles.subtext}>Drop</Text>
-                <Text style={styles.subtext}> 8 (33.3%)</Text>
+                <Text style={styles.subtext}>
+                  {' '}
+                  {props.statistics[2]} ({(props.statistics[2] /
+                    props.statistics[0]) *
+                    100}%)
+                </Text>
               </View>
             </View>
           </CardItem>

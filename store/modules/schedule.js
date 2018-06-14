@@ -44,7 +44,8 @@ const INITIAL_STATE = {
   isLoading: false,
   schedule: [],
   archive: [],
-  message: ''
+  message: '',
+  statistics: []
 };
 
 //reducer
@@ -72,8 +73,9 @@ function applyLoadSuccess(state, payload) {
   return {
     ...state,
     ...INITIAL_STATE,
-    schedule: payload.schedule || [],
-    archive: payload.archive || []
+    schedule: payload.result.schedule || [],
+    archive: payload.result.archive || [],
+    statistics: payload.stat || []
   };
 }
 

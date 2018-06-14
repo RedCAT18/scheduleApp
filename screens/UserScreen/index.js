@@ -7,8 +7,8 @@ import { actionCreators as scheduleAction } from '../../store/modules/schedule';
 
 function mapStateToProps(state) {
   const { isLoggedIn, user } = state.auth;
-
-  return { isLoggedIn, user };
+  const { statistics } = state.schedule;
+  return { isLoggedIn, user, statistics };
 }
 
 function mapDispatchToProps(dispatch) {

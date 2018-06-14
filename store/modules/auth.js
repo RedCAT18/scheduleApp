@@ -121,7 +121,9 @@ const INITIAL_STATE = {
   isLoading: false,
   message: '',
   isLoggedIn: false,
-  user: {}
+  user: {},
+  isStatLoading: false,
+  statistics: []
 };
 
 //reducer
