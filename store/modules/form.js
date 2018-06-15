@@ -9,6 +9,7 @@ const SAVE_SUCCESS = 'save_success';
 const SAVE_FAIL = 'save_fail';
 
 const SET_PARAMS = 'set_params';
+const RESET_FORM = 'reset_form';
 
 //action creators
 function inputForm({ prop, value }) {
@@ -109,6 +110,12 @@ function setParamsToUpdate(params) {
   };
 }
 
+function resetForm() {
+  return {
+    type: RESET_FORM
+  };
+}
+
 function deleteSchedule(data) {
   const { params } = data.navigation.state;
   const uid = params.uid;
@@ -160,6 +167,8 @@ function reducer(state = INITIAL_STATE, action) {
       return applySaveFail(state, action.payload);
     case SET_PARAMS:
       return applySetParamsToUpdate(state, action.payload);
+    case RESET_FORM:
+      return INITIAL_STATE;
     default:
       return state;
   }
@@ -184,7 +193,6 @@ function applySaveFail(state, payload) {
 }
 
 function applySetParamsToUpdate(state, payload) {
-  console.log(payload);
   return {
     ...state,
     title: payload.title,
@@ -204,7 +212,8 @@ export const actioncreators = {
   saveSchedule,
   setParamsToUpdate,
   updateStatus,
-  deleteSchedule
+  deleteSchedule,
+  resetForm
 };
 
 export default reducer;

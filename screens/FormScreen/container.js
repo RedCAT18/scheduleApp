@@ -24,6 +24,8 @@ class Container extends Component {
   componentWillMount() {
     if (this.props.navigation.state.routeName === 'Edit') {
       this.props.setParamsToUpdate(this.props.navigation.state.params);
+    } else {
+      this.props.resetForm();
     }
   }
 

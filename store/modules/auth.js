@@ -128,7 +128,7 @@ function updateUser(data) {
     email: data.email,
     name: data.name,
     password: data.password.length === 0 ? null : data.password,
-    uid: data.user.uid
+    uid: data.uid
   };
 
   return dispatch => {
@@ -244,7 +244,6 @@ function applyLoginSuccess(state, payload) {
 function applyLoginFail(state, payload) {
   return {
     ...state,
-    email: '',
     password: '',
     isLoading: false,
     message: payload
@@ -271,10 +270,8 @@ function applySignupSuccess(state, payload) {
 function applySignupFail(state, payload) {
   return {
     ...state,
-    email: '',
     password: '',
     passwordCheck: '',
-    name: '',
     isLoading: false,
     message: payload
   };

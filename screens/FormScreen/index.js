@@ -33,7 +33,8 @@ function mapDispatchToProps(dispatch) {
     setParamsToUpdate: bindActionCreators(
       formActions.setParamsToUpdate,
       dispatch
-    )
+    ),
+    resetForm: bindActionCreators(formActions.resetForm, dispatch)
   };
 }
 

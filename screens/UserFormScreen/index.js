@@ -5,8 +5,16 @@ import Container from './container';
 import { actionCreators as authActions } from '../../store/modules/auth';
 
 function mapStateToProps(state) {
-  const { name, email, password, passwordcheck, message, user } = state.auth;
-  return { name, email, password, passwordcheck, message, user };
+  const {
+    name,
+    email,
+    password,
+    passwordcheck,
+    uid,
+    message,
+    user
+  } = state.auth;
+  return { name, email, password, passwordcheck, uid, message, user };
 }
 
 function mapDispatchToProps(dispatch) {

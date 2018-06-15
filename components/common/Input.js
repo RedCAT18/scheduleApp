@@ -1,5 +1,12 @@
 import React from 'react';
-import { View, Text, TextInput, StyleSheet, Dimensions } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  Dimensions,
+  Platform
+} from 'react-native';
 import * as variable from './variables';
 
 const { width, height } = Dimensions.get('window');

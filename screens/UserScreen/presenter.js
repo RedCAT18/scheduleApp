@@ -16,6 +16,14 @@ import * as variable from '../../components/common/variables';
 const { width, height } = Dimensions.get('window');
 
 const UserScreen = props => {
+  const totalAmount = props.statistics[0],
+    successAmount = props.statistics[1],
+    failAmount =
+      props.statistics[2] || props.statistics[0] - props.statistics[1];
+
+  const successPercentage = Number((successAmount / totalAmount) * 100) || 0;
+  const failPercentage = Number((failAmount / totalAmount) * 100) || 0;
+
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={variable.baseColor} translucent />
@@ -57,27 +65,20 @@ const UserScreen = props => {
             <View style={styles.submenu}>
               <View style={styles.submenubox}>
                 <Text style={styles.subtext}>Total</Text>
-                <Text style={styles.subtext}>
-                  {' '}
-                  {props.statistics[0]} (100%)
-                </Text>
+                <Text style={styles.subtext}> {totalAmount} (100%)</Text>
               </View>
               <View style={styles.submenubox}>
                 <Text style={styles.subtext}>Completed</Text>
                 <Text style={styles.subtext}>
                   {' '}
-                  {props.statistics[1]} ({(props.statistics[1] /
-                    props.statistics[0]) *
-                    100}%)
+                  {successAmount} ({successPercentage}%)
                 </Text>
               </View>
               <View style={styles.submenubox}>
                 <Text style={styles.subtext}>Drop</Text>
                 <Text style={styles.subtext}>
                   {' '}
-                  {props.statistics[2]} ({(props.statistics[2] /
-                    props.statistics[0]) *
-                    100}%)
+                  {failAmount} ({failPercentage}%)
                 </Text>
               </View>
             </View>

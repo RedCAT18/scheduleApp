@@ -43,11 +43,12 @@ const styles = StyleSheet.create({
   },
   card: {
     backgroundColor: variable.baseColor,
-    height: height * 0.12,
-    alignItems: 'flex-start',
+    height: height * 0.15,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     width: width,
-    padding: 20,
-    marginTop: Constants.statusBarHeight
+    paddingHorizontal: 20,
+    paddingTop: Constants.statusBarHeight + 15
   },
   topText: {
     color: variable.bgColor,
