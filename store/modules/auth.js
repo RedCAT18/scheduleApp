@@ -14,6 +14,11 @@ const SIGNUP_SUCCESS = 'signup_success';
 const SIGNUP_FAIL = 'signup_fail';
 const SUBMIT_LOGOUT = 'submit_logout';
 
+const SET_USER_FORM = 'set_user_form';
+const SUBMIT_UPDATE = 'submit_update';
+const UPDATE_SUCCESS = 'update_success';
+const UPDATE_FAIL = 'update_fail';
+
 const RESET_STATE = 'reset_state';
 
 //action creator
@@ -111,6 +116,61 @@ function submitLogout() {
   };
 }
 
+function setUserForm(userinfo) {
+  return {
+    type: SET_USER_FORM,
+    payload: userinfo
+  };
+}
+
+function updateUser(data) {
+  const userdata = {
+    email: data.email,
+    name: data.name,
+    password: data.password.length === 0 ? null : data.password,
+    uid: data.user.uid
+  };
+
+  return dispatch => {
+    dispatch(submitUpdate());
+    api
+      .post('/auth/update', userdata)
+      .then(response => {
+        if (response.status === 200) {
+          dispatch(updateSuccess(userdata));
+          data.navigation.goBack();
+        } else {
+          dispatch(updateFail(response.data));
+        }
+      })
+      .catch(error => {
+        console.log(error);
+        const message = error.response.data || 'NETWORK ERROR';
+        dispatch(updateFail(message));
+      });
+  };
+}
+
+function submitUpdate() {
+  return {
+    type: SUBMIT_UPDATE
+  };
+}
+
+function updateSuccess(data) {
+  return {
+    type: UPDATE_SUCCESS,
+    payload: data
+  };
+}
+
+function updateFail(data) {
+  return {
+    type: UPDATE_FAIL,
+    payload: data
+  };
+}
+
 //initial state
 
 const INITIAL_STATE = {
@@ -121,9 +181,8 @@ const INITIAL_STATE = {
   isLoading: false,
   message: '',
   isLoggedIn: false,
-  user: {},
-  isStatLoading: false,
-  statistics: []
+  uid: '',
+  user: {}
 };
 
 //reducer
@@ -144,6 +203,14 @@ function reducer(state = INITIAL_STATE, action) {
       return applySignupSuccess(state, action.payload);
     case SIGNUP_FAIL:
       return applySignupFail(state, action.payload);
+    case SET_USER_FORM:
+      return applySetUserForm(state, action.payload);
+    case SUBMIT_UPDATE:
+      return applySubmitUpdate(state);
+    case UPDATE_SUCCESS:
+      return applyUpdateSuccess(state, action.payload);
+    case UPDATE_FAIL:
+      return applyUpdateFail(state, action.payload);
     case RESET_STATE:
       return INITIAL_STATE;
     case SUBMIT_LOGOUT:
@@ -206,7 +273,47 @@ function applySignupFail(state, payload) {
     ...state,
     email: '',
     password: '',
+    passwordCheck: '',
     name: '',
+    isLoading: false,
+    message: payload
+  };
+}
+
+function applySetUserForm(state, payload) {
+  return {
+    ...state,
+    email: payload.email,
+    name: payload.name,
+    uid: payload.uid,
+    message: ''
+  };
+}
+
+function applySubmitUpdate(state) {
+  return {
+    ...state,
+    isLoading: true,
+    message: ''
+  };
+}
+
+function applyUpdateSuccess(state, payload) {
+  return {
+    ...state,
+    email: '',
+    name: '',
+    password: '',
+    uid: '',
+    message: '',
+    isLoading: false,
+    user: { email: payload.email, name: payload.name, uid: payload.uid }
+  };
+}
+
+function applyUpdateFail(state, payload) {
+  return {
+    ...state,
     isLoading: false,
     message: payload
   };
@@ -227,7 +334,9 @@ export const actionCreators = {
   submitLogin,
   submitSignup,
   submitLogout,
-  resetState
+  resetState,
+  setUserForm,
+  updateUser
 };
 
 export default reducer;

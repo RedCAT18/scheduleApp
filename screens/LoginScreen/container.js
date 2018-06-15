@@ -10,7 +10,6 @@ class Container extends Component {
   }
 
   renderMessage(message) {
-    // console.log(this.props);
     if (message) {
       return <Text style={styles.warning}>{message}</Text>;
     }

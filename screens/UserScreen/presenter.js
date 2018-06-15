@@ -83,7 +83,9 @@ const UserScreen = props => {
             </View>
           </CardItem>
           <CardItem>
-            <TouchableWithoutFeedback>
+            <TouchableWithoutFeedback
+              onPressOut={() => props.navigation.navigate('UserForm')}
+            >
               <View style={styles.mymenu}>
                 <Ionicons
                   name={'ios-clipboard'}

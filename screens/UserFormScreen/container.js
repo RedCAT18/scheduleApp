@@ -1,20 +1,12 @@
 import React, { Component } from 'react';
 import { Text, StyleSheet } from 'react-native';
-import SignupScreen from './presenter';
-
-import PropTypes from 'prop-types';
+import UserFormScreen from './presenter';
 
 import * as variable from '../../components/common/variables';
 
 class Container extends Component {
-  static propTypes = {
-    email: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired
-  };
-
   componentWillMount() {
-    this.props.resetState();
+    this.props.setUserForm(this.props.user);
   }
 
   _renderMessage(message) {
@@ -24,16 +16,15 @@ class Container extends Component {
   }
 
   render() {
-    return <SignupScreen {...this.props} renderMessage={this._renderMessage} />;
+    return (
+      <UserFormScreen {...this.props} renderMessage={this._renderMessage} />
+    );
   }
 }
 
 const styles = StyleSheet.create({
   warning: {
-    margin: 5,
-    color: variable.warningColor,
-    textAlign: 'center'
+    color: variable.warningColor
   }
 });
-
 export default Container;
