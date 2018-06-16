@@ -1,7 +1,7 @@
 //import
 import { api } from '../../api';
 
-import { AsyncStorage } from 'react-native';
+// import { AsyncStorage } from 'react-native';
 import storage from 'redux-persist/es/storage';
 
 //types
@@ -9,6 +9,7 @@ const LOAD_DATA = 'load_data';
 const LOAD_SUCCESS = 'load_success';
 const LOAD_FAIL = 'load_fail';
 const RESET_STORAGE = 'reset_storage';
+const RESET_MESSAGE = 'reset_message';
 
 //action creators
 
@@ -18,7 +19,6 @@ function loadData() {
     api
       .get('/schedule/show')
       .then(response => {
-        // console.log(response.data);
         if (response.status === 200) {
           dispatch({ type: LOAD_SUCCESS, payload: response.data });
         }
@@ -35,6 +35,12 @@ function resetStorage() {
   storage.removeItem('persist:scheduleApp');
   return {
     type: RESET_STORAGE
+  };
+}
+
+function resetMessage() {
+  return {
+    type: RESET_MESSAGE
   };
 }
 
@@ -59,6 +65,8 @@ function reducer(state = INITIAL_STATE, action) {
       return applyLoadFail(state, action.payload);
     case RESET_STORAGE:
       return applyResetStorage(state);
+    case RESET_MESSAGE:
+      return applyResetMessage(state);
     default:
       return state;
   }
@@ -75,7 +83,8 @@ function applyLoadSuccess(state, payload) {
     ...INITIAL_STATE,
     schedule: payload.result.schedule || [],
     archive: payload.result.archive || [],
-    statistics: payload.stat || []
+    statistics: payload.stat || [],
+    message: payload.checkingMessage || ''
   };
 }
 
@@ -87,11 +96,16 @@ function applyResetStorage(state) {
   return { ...state, ...INITIAL_STATE };
 }
 
+function applyResetMessage(state) {
+  return { ...state, message: '' };
+}
+
 //export
 
 export const actionCreators = {
   loadData,
-  resetStorage
+  resetStorage,
+  resetMessage
 };
 
 export default reducer;

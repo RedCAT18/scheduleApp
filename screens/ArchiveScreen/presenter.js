@@ -18,26 +18,28 @@ const { width, height } = Dimensions.get('window');
 const ArchiveScreen = props => {
   return (
     <View style={styles.container}>
-      <StatusBar
-        varStyle="dark-content"
-        backgroundColor={variable.baseColor}
-        translucent
-      />
+      <StatusBar backgroundColor={variable.baseColor} translucent />
       <Card style={styles.card}>
         <Text style={styles.topText}>{props.user.name}'s Archive</Text>
       </Card>
-      <ListView
-        enableEmptySections
-        dataSource={props.dataSource}
-        renderRow={props.renderItem}
-      />
+
+      {props.sendData ? (
+        <ListView
+          enableEmptySections
+          dataSource={props.dataSource}
+          renderRow={props.renderItem}
+        />
+      ) : (
+        <View style={styles.nodata}>
+          <Text style={styles.nodatatext}>No archive yet. :/</Text>
+        </View>
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -53,6 +55,17 @@ const styles = StyleSheet.create({
   topText: {
     color: variable.bgColor,
     fontSize: 24
+  },
+  nodata: {
+    marginTop: 100,
+    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  nodatatext: {
+    color: variable.secondColor,
+    fontSize: 28,
+    fontWeight: '700'
   }
 });
 

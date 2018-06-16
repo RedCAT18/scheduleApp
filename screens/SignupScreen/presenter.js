@@ -27,7 +27,8 @@ const SignupScreen = props => {
             props.submitSignup({
               email: props.email,
               name: props.name,
-              password: props.password
+              password: props.password,
+              passwordcheck: props.passwordcheck
             })
           }
         >

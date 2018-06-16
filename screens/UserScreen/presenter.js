@@ -17,9 +17,8 @@ const { width, height } = Dimensions.get('window');
 
 const UserScreen = props => {
   const totalAmount = props.statistics[0],
-    successAmount = props.statistics[1],
-    failAmount =
-      props.statistics[2] || props.statistics[0] - props.statistics[1];
+    successAmount = props.statistics[1] || 0,
+    failAmount = props.statistics[2] || totalAmount - successAmount;
 
   const successPercentage = Number((successAmount / totalAmount) * 100) || 0;
   const failPercentage = Number((failAmount / totalAmount) * 100) || 0;

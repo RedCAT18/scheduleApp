@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   KeyboardAvoidingView,
+  ScrollView,
   View,
   Text,
   StyleSheet,
@@ -15,26 +16,28 @@ const { width, height } = Dimensions.get('window');
 
 const UserFormScreen = props => {
   return (
-    <KeyboardAvoidingView style={styles.container}>
-      <View style={styles.titlearea}>
-        <Text style={styles.title}>Update your Information</Text>
-      </View>
-      <UserForm {...props} />
-      <CardItem>{props.renderMessage(props.message)}</CardItem>
-      <View style={styles.buttonarea}>
-        <Button
-          style={styles.button}
-          onPressOut={() => props.updateUser(props)}
-        >
-          Update
-        </Button>
-        <Button
-          style={[styles.button, styles.grey]}
-          onPressOut={() => props.navigation.goBack()}
-        >
-          Cancel
-        </Button>
-      </View>
+    <KeyboardAvoidingView behavior="padding" style={styles.container}>
+      <ScrollView>
+        <View style={styles.titlearea}>
+          <Text style={styles.title}>Update your Information</Text>
+        </View>
+        <UserForm {...props} />
+        <CardItem>{props.renderMessage(props.message)}</CardItem>
+        <View style={styles.buttonarea}>
+          <Button
+            style={styles.button}
+            onPressOut={() => props.updateUser(props)}
+          >
+            Update
+          </Button>
+          <Button
+            style={[styles.button, styles.grey]}
+            onPressOut={() => props.navigation.goBack()}
+          >
+            Cancel
+          </Button>
+        </View>
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 };

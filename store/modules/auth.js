@@ -61,11 +61,11 @@ function submitLogin({ email, password }) {
   };
 }
 
-function submitSignup({ email, name, password }) {
+function submitSignup({ email, name, password, passwordcheck }) {
   return dispatch => {
     dispatch({ type: SUBMIT_SIGNUP });
 
-    const data = { email, name, password };
+    const data = { email, name, password, passwordcheck };
     if (
       data.email.length === 0 ||
       data.name.length === 0 ||
@@ -133,6 +133,12 @@ function updateUser(data) {
 
   return dispatch => {
     dispatch(submitUpdate());
+    if (
+      userdata.password &&
+      !validatePassword(userdata.password, data.passwordcheck)
+    ) {
+      dispatch(updateFail('Both password input are not the same.'));
+    }
     api
       .post('/auth/update', userdata)
       .then(response => {
@@ -234,6 +240,7 @@ function applyLoginSuccess(state, payload) {
     ...state,
     email: '',
     password: '',
+    passwordcheck: '',
     isLoading: false,
     isLoggedIn: true,
     message: '',
@@ -245,6 +252,7 @@ function applyLoginFail(state, payload) {
   return {
     ...state,
     password: '',
+    passwordcheck: '',
     isLoading: false,
     message: payload
   };
@@ -259,6 +267,7 @@ function applySignupSuccess(state, payload) {
     ...state,
     email: '',
     password: '',
+    passwordcheck: '',
     name: '',
     isLoading: false,
     isLoggedIn: true,
@@ -301,6 +310,7 @@ function applyUpdateSuccess(state, payload) {
     email: '',
     name: '',
     password: '',
+    passwordcheck: '',
     uid: '',
     message: '',
     isLoading: false,
@@ -312,6 +322,8 @@ function applyUpdateFail(state, payload) {
   return {
     ...state,
     isLoading: false,
+    password: '',
+    passwordcheck: '',
     message: payload
   };
 }
@@ -321,8 +333,7 @@ function applySubmitLogout(state) {
   storage.removeItem('persist:scheduleApp');
   return {
     ...state,
-    isLoggedIn: false,
-    user: {}
+    ...INITIAL_STATE
   };
 }
 
