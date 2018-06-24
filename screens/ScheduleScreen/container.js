@@ -11,7 +11,10 @@ class Container extends Component {
   };
 
   componentWillMount() {
-    this.props.loadData();
+    const currentScreen = this.props.navigation.state.routeName;
+    const { currentSchedulePage } = this.props;
+    // console.log(currentSchedulePage, currentScreen);
+    this.props.loadData({ currentScreen, currentSchedulePage });
 
     this._createDataSource(this.props.schedule);
     if (this.props.message) {
@@ -67,6 +70,10 @@ class Container extends Component {
     return <ScheduleItem schedule={rowData} />;
   }
 
+  _nextLoad() {
+    console.log(this.props);
+  }
+
   render() {
     return (
       <ScheduleScreen
@@ -76,6 +83,7 @@ class Container extends Component {
         dataSource={this.dataSource}
         renderItem={this._renderItem}
         closeModal={() => this._closeModal()}
+        // onEndReached={() => this._nextLoad}
       />
     );
   }

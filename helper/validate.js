@@ -8,4 +8,24 @@ function validatePassword(p1, p2) {
   return p1 === p2 ? true : false;
 }
 
-export { validateEmail, validatePassword };
+function validateDatetime(insertedTime) {
+  const currentTime = new Date();
+  const currentMonth =
+    currentTime.getMonth() + 1 < 10
+      ? '0' + (currentTime.getMonth() + 1)
+      : currentTime.getMonth() + 1;
+  const datetime =
+    currentTime.getFullYear() +
+    '-' +
+    currentMonth +
+    '-' +
+    currentTime.getDate() +
+    ' ' +
+    currentTime.getHours() +
+    ':' +
+    currentTime.getMinutes();
+
+  return insertedTime < datetime ? false : true;
+}
+
+export { validateEmail, validatePassword, validateDatetime };

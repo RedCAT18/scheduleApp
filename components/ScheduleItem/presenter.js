@@ -18,23 +18,23 @@ class ScheduleItem extends Component {
     const { title, location, datetime } = this.props.schedule;
 
     return (
-      <TouchableOpacity
-        onPressOut={() =>
-          this.props.navigation.navigate('Detail', this.props.schedule)
-        }
-      >
-        <CardItem>
-          <View style={styles.container}>
-            <View style={styles.outerbox}>
+      <CardItem>
+        <View style={styles.container}>
+          <View style={styles.outerbox}>
+            <TouchableOpacity
+              onPressOut={() =>
+                this.props.navigation.navigate('Detail', this.props.schedule)
+              }
+            >
               <Text style={styles.title}>{title}</Text>
-              <View style={styles.innerbox}>
-                <Text style={styles.location}>{location}</Text>
-                <Text style={styles.datetime}>{datetime}</Text>
-              </View>
+            </TouchableOpacity>
+            <View style={styles.innerbox}>
+              <Text style={styles.location}>{location}</Text>
+              <Text style={styles.datetime}>{datetime}</Text>
             </View>
           </View>
-        </CardItem>
-      </TouchableOpacity>
+        </View>
+      </CardItem>
     );
   }
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text, StyleSheet, Platform } from 'react-native';
+import * as variable from '../../components/common/variables';
 
 import FormScreen from './presenter';
 
@@ -33,14 +34,27 @@ class Container extends Component {
     return this.props.saveSchedule(props);
   }
 
+  _renderMessage(message) {
+    if (message) {
+      return <Text style={styles.warning}>{message}</Text>;
+    }
+  }
+
   render() {
     return (
       <FormScreen
         {...this.props}
+        renderMessage={this._renderMessage(this.props.message)}
         saveSchedule={() => this._saveSchedule(this.props)}
       />
     );
   }
 }
+
+const styles = StyleSheet.create({
+  warning: {
+    color: variable.warningColor
+  }
+});
 
 export default Container;

@@ -10,15 +10,18 @@ const LOAD_SUCCESS = 'load_success';
 const LOAD_FAIL = 'load_fail';
 const RESET_STORAGE = 'reset_storage';
 const RESET_MESSAGE = 'reset_message';
+const LOAD_NEXT_DATA = 'load_next_data';
 
 //action creators
 
-function loadData() {
+function loadData(data) {
+  // console.log(data);
   return dispatch => {
     dispatch({ type: LOAD_DATA });
     api
-      .get('/schedule/show')
+      .get(`/schedule/show/${data.currentSchedulePage}/${data.currentScreen}`)
       .then(response => {
+        console.log(response.data);
         if (response.status === 200) {
           dispatch({ type: LOAD_SUCCESS, payload: response.data });
         }
@@ -29,6 +32,12 @@ function loadData() {
         dispatch({ type: LOAD_FAIL, payload: msg });
       });
   };
+}
+
+//infinite scroll용 api.
+function loadNextData(data) {
+  //로드하고자 하는 곳의 라우터 페이지가 schedule/archive인지 판별해 엔드포인트 구성
+  //데이터를 로드해 올 때 마다 page를 넘긴다.
 }
 
 function resetStorage() {
@@ -51,7 +60,9 @@ const INITIAL_STATE = {
   schedule: [],
   archive: [],
   message: '',
-  statistics: []
+  statistics: [],
+  currentSchedulePage: 1,
+  currentArchivePage: 1
 };
 
 //reducer
@@ -84,7 +95,7 @@ function applyLoadSuccess(state, payload) {
     schedule: payload.result.schedule || [],
     archive: payload.result.archive || [],
     statistics: payload.stat || [],
-    message: payload.checkingMessage || ''
+    message: payload.checkingMessage || null
   };
 }
 
@@ -105,7 +116,8 @@ function applyResetMessage(state) {
 export const actionCreators = {
   loadData,
   resetStorage,
-  resetMessage
+  resetMessage,
+  loadNextData
 };
 
 export default reducer;

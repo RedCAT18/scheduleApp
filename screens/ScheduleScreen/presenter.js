@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  ActivityIndicator,
   Modal,
   View,
   ListView,
@@ -7,7 +8,8 @@ import {
   Dimensions,
   Text,
   TouchableWithoutFeedback,
-  StyleSheet
+  StyleSheet,
+  Platform
 } from 'react-native';
 import { Button } from '../../components/common';
 import { Constants } from 'expo';
@@ -19,7 +21,7 @@ import * as variable from '../../components/common/variables';
 const { width, height } = Dimensions.get('window');
 
 const ScheduleScreen = props => {
-  console.log(props.schedule);
+  // console.log(props);
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={variable.baseColor} translucent />
@@ -61,7 +63,6 @@ const ScheduleScreen = props => {
           />
         </TouchableWithoutFeedback>
       </Card>
-
       {props.sendData ? (
         <ListView
           enableEmptySections
@@ -73,6 +74,9 @@ const ScheduleScreen = props => {
           <Text style={styles.nodatatext}>No schedule yet. :/</Text>
         </View>
       )}
+      {props.isLoading ? (
+        <ActivityIndicator style={styles.loadingBar} size={32} />
+      ) : null}
     </View>
   );
 };
@@ -80,7 +84,8 @@ const ScheduleScreen = props => {
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginBottom: 45
   },
   card: {
     backgroundColor: variable.baseColor,
@@ -105,7 +110,18 @@ const styles = StyleSheet.create({
     minHeight: height * 0.3,
     marginTop: height * 0.3,
     padding: 20,
-    backgroundColor: variable.bgColor
+    backgroundColor: variable.bgColor,
+    ...Platform.select({
+      ios: {
+        shadowColor: variable.secondColor,
+        shadowOffset: { width: 5, height: 5 },
+        shadowOpacity: '50%',
+        shadowRadius: 3
+      },
+      android: {
+        elevation: 3
+      }
+    })
   },
   modalButton: {
     marginHorizontal: 10
@@ -128,6 +144,9 @@ const styles = StyleSheet.create({
     color: variable.secondColor,
     fontSize: 28,
     fontWeight: '700'
+  },
+  loadingBar: {
+    paddingVertical: 10
   }
 });
 

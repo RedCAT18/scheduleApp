@@ -1,15 +1,18 @@
 import React from 'react';
 import {
+  ActivityIndicator,
+  Modal,
   View,
   ListView,
   StatusBar,
   Dimensions,
   Text,
-  StyleSheet
+  StyleSheet,
+  Platform
 } from 'react-native';
 
 import { Constants } from 'expo';
-import { Card } from '../../components/common';
+import { Button, Card } from '../../components/common';
 
 import * as variable from '../../components/common/variables';
 
@@ -19,6 +22,25 @@ const ArchiveScreen = props => {
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={variable.baseColor} translucent />
+
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={props.modalVisible}
+        onRequestClose={() => {
+          console.log('close modal');
+        }}
+      >
+        <View style={styles.modalcontainer}>
+          <Text style={styles.modalText}>{props.message}</Text>
+          <View style={styles.modalButton}>
+            <Button style={[styles.grey]} onPressOut={props.closeModal}>
+              <Text>Close</Text>
+            </Button>
+          </View>
+        </View>
+      </Modal>
+
       <Card style={styles.card}>
         <Text style={styles.topText}>{props.user.name}'s Archive</Text>
       </Card>
@@ -34,6 +56,9 @@ const ArchiveScreen = props => {
           <Text style={styles.nodatatext}>No archive yet. :/</Text>
         </View>
       )}
+      {props.isLoading ? (
+        <ActivityIndicator style={styles.loadingBar} size={32} />
+      ) : null}
     </View>
   );
 };
@@ -41,7 +66,8 @@ const ArchiveScreen = props => {
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginBottom: 45
   },
   card: {
     backgroundColor: variable.baseColor,
@@ -66,6 +92,40 @@ const styles = StyleSheet.create({
     color: variable.secondColor,
     fontSize: 28,
     fontWeight: '700'
+  },
+  loadingBar: {
+    paddingVertical: 10
+  },
+  modalcontainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: width,
+    minHeight: height * 0.3,
+    marginTop: height * 0.3,
+    padding: 20,
+    backgroundColor: variable.bgColor,
+    ...Platform.select({
+      ios: {
+        shadowColor: variable.secondColor,
+        shadowOffset: { width: 5, height: 5 },
+        shadowOpacity: '50%',
+        shadowRadius: 3
+      },
+      android: {
+        elevation: 3
+      }
+    })
+  },
+  modalButton: {
+    marginHorizontal: 10
+  },
+  modalText: {
+    fontSize: 16,
+    marginBottom: 20
+  },
+  grey: {
+    width: width * 0.8,
+    backgroundColor: variable.secondColor
   }
 });
 

@@ -12,7 +12,8 @@ function mapStateToProps(state) {
     datetime,
     status,
     created_at,
-    uid
+    uid,
+    message
   } = state.form;
 
   return {
@@ -22,7 +23,8 @@ function mapStateToProps(state) {
     datetime,
     status,
     created_at,
-    uid
+    uid,
+    message
   };
 }
 

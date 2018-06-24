@@ -52,6 +52,7 @@ const FormScreen = props => {
             }}
             onDateChange={value => props.inputForm({ prop: 'datetime', value })}
           />
+          <View style={styles.warningArea}>{props.renderMessage}</View>
           <View style={styles.buttonarea}>
             <Button style={styles.button} onPressOut={props.saveSchedule}>
               Add Schedule
@@ -88,6 +89,11 @@ const styles = StyleSheet.create({
   },
   button: {
     width: width * 0.8
+  },
+  warningArea: {
+    marginTop: 20,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });
 

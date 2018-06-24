@@ -6,8 +6,15 @@ import { actionCreators as scheduleActions } from '../../store/modules/schedule'
 
 function mapStateToProps(state) {
   const { isLoggedIn, user } = state.auth;
-  const { archive } = state.schedule;
-  return { user, isLoggedIn, archive };
+  const { archive, isLoading, message, currentArchivePage } = state.schedule;
+  return {
+    user,
+    isLoggedIn,
+    archive,
+    isLoading,
+    message,
+    currentArchivePage
+  };
 }
 
 function mapDispatchToProps(dispatch) {

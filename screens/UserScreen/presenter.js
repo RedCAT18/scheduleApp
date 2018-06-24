@@ -20,8 +20,12 @@ const UserScreen = props => {
     successAmount = props.statistics[1] || 0,
     failAmount = props.statistics[2] || totalAmount - successAmount;
 
-  const successPercentage = Number((successAmount / totalAmount) * 100) || 0;
-  const failPercentage = Number((failAmount / totalAmount) * 100) || 0;
+  let successPercentage =
+    Number((successAmount / totalAmount) * 100).toFixed(2) || 0;
+  let failPercentage = Number((failAmount / totalAmount) * 100).toFixed(2) || 0;
+
+  if (successPercentage === 'NaN') successPercentage = 0;
+  if (failPercentage === 'NaN') failPercentage = 0;
 
   return (
     <View style={styles.container}>
@@ -112,7 +116,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: width,
     backgroundColor: variable.darkColor,
-    marginTop: Constants.statusBarHeight
+    paddingTop: Constants.statusBarHeight
   },
   logout: {
     color: variable.bgColor,

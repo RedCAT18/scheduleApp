@@ -1,6 +1,7 @@
 //types
 
 import { api } from '../../api';
+import { validateDatetime } from '../../helper/validate';
 
 const SAVE_SCHEDULE = 'save_schedule';
 const INPUT_FORM = 'input_form';
@@ -28,11 +29,13 @@ function saveSchedule(data) {
     status: data.status,
     uid: data.uid || null
   };
-  // console.log(schedule);
+
   return dispatch => {
     dispatch(startSave());
     if (schedule.title.length === 0) {
       dispatch(saveFail('You must enter schedule title.'));
+    } else if (!validateDatetime(data.datetime)) {
+      dispatch(saveFail('Schedule date and time must be later than now.'));
     } else {
       api
         .post('/schedule/save', schedule)
