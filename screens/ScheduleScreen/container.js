@@ -14,14 +14,18 @@ class Container extends Component {
     const currentScreen = this.props.navigation.state.routeName;
     const { currentSchedulePage } = this.props;
     // console.log(currentSchedulePage, currentScreen);
-    this.props.loadData({ currentScreen, currentSchedulePage });
+    if (this.props.isNextScheduleExist) {
+      this.props.loadData({ currentScreen, currentSchedulePage });
+    }
 
-    this._createDataSource(this.props.schedule);
     if (this.props.message) {
       this.setState({
         modalVisible: true
       });
     }
+
+    this._createDataSource(this.props.schedule);
+
     if (this.props.schedule.length === 0) {
       this.setState({
         data: false
@@ -37,8 +41,18 @@ class Container extends Component {
     const params = nextProps.navigation.state.params || null;
 
     if (params && params.updated) {
-      this.props.loadData();
+      const currentScreen = this.props.navigation.state.routeName;
+      const { currentSchedulePage } = this.props;
+      if (this.props.isNextScheduleExist) {
+        this.props.loadData({ currentScreen, currentSchedulePage });
+      }
       params.updated = false;
+    }
+
+    if (this.props.message) {
+      this.setState({
+        modalVisible: true
+      });
     }
     this._createDataSource(nextProps.schedule);
     if (nextProps.schedule.length === 0) {
@@ -50,6 +64,10 @@ class Container extends Component {
         data: true
       });
     }
+  }
+
+  componentWillUnmount() {
+    this.props.resetPages();
   }
 
   _createDataSource(schedule) {
@@ -70,8 +88,12 @@ class Container extends Component {
     return <ScheduleItem schedule={rowData} />;
   }
 
-  _nextLoad() {
-    console.log(this.props);
+  _nextLoad(props) {
+    const currentScreen = props.navigation.state.routeName;
+    const { currentSchedulePage } = props;
+    if (props.isNextScheduleExist && !props.isLoading) {
+      this.props.loadNextData({ currentScreen, currentSchedulePage });
+    }
   }
 
   render() {
@@ -83,7 +105,7 @@ class Container extends Component {
         dataSource={this.dataSource}
         renderItem={this._renderItem}
         closeModal={() => this._closeModal()}
-        // onEndReached={() => this._nextLoad}
+        nextLoad={() => this._nextLoad(this.props)}
       />
     );
   }

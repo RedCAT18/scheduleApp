@@ -68,6 +68,7 @@ const ScheduleScreen = props => {
           enableEmptySections
           dataSource={props.dataSource}
           renderRow={props.renderItem}
+          onEndReached={props.nextLoad()}
         />
       ) : (
         <View style={styles.nodata}>

@@ -11,8 +11,8 @@ class Container extends Component {
   };
 
   componentWillMount() {
-    // this.props.loadData();
     this._createDataSource(this.props.archive);
+
     if (this.props.message) {
       this.setState({
         modalVisible: true
@@ -36,6 +36,13 @@ class Container extends Component {
       this.props.loadData();
       params.updated = false;
     }
+
+    if (this.props.message) {
+      this.setState({
+        modalVisible: true
+      });
+    }
+
     this._createDataSource(nextProps.archive);
     if (nextProps.archive.length === 0) {
       this.setState({
@@ -46,6 +53,10 @@ class Container extends Component {
         data: true
       });
     }
+  }
+
+  componentWillUnmount() {
+    this.props.resetPages();
   }
 
   _createDataSource(archive) {
@@ -66,6 +77,14 @@ class Container extends Component {
     return <ArchiveItem archive={rowData} />;
   }
 
+  _nextLoad(props) {
+    const currentScreen = props.navigation.state.routeName;
+    const { currentSchedulePage } = props;
+    if (props.isNextScheduleExist && !props.isLoading) {
+      this.props.loadNextData({ currentScreen, currentSchedulePage });
+    }
+  }
+
   render() {
     return (
       <ArchiveScreen
@@ -75,6 +94,7 @@ class Container extends Component {
         dataSource={this.dataSource}
         renderItem={this._renderItem}
         closeModal={() => this._closeModal()}
+        nextLoad={() => this._nextLoad(this.props)}
       />
     );
   }
