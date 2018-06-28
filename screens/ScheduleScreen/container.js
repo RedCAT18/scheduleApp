@@ -14,9 +14,8 @@ class Container extends Component {
     const currentScreen = this.props.navigation.state.routeName;
     const { currentSchedulePage } = this.props;
     // console.log(currentSchedulePage, currentScreen);
-    if (this.props.isNextScheduleExist) {
-      this.props.loadData({ currentScreen, currentSchedulePage });
-    }
+
+    this.props.loadData({ currentScreen, currentSchedulePage });
 
     if (this.props.message) {
       this.setState({
@@ -43,9 +42,9 @@ class Container extends Component {
     if (params && params.updated) {
       const currentScreen = this.props.navigation.state.routeName;
       const { currentSchedulePage } = this.props;
-      if (this.props.isNextScheduleExist) {
-        this.props.loadData({ currentScreen, currentSchedulePage });
-      }
+
+      this.props.loadData({ currentScreen, currentSchedulePage });
+
       params.updated = false;
     }
 

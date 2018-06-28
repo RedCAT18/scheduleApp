@@ -20,7 +20,7 @@ function loadData(data) {
   return dispatch => {
     dispatch({ type: LOAD_DATA });
     api
-      .get(`/schedule/show/${data.currentSchedulePage}/${data.currentScreen}`)
+      .get(`/schedule/show/1/schedule`)
       .then(response => {
         console.log(response.data);
         if (response.status === 200) {
@@ -181,7 +181,7 @@ function applyResetStorage(state) {
 }
 
 function applyResetMessage(state) {
-  return { ...state, message: '' };
+  return { ...state, message: null };
 }
 
 //export

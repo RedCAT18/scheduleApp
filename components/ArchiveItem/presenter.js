@@ -26,18 +26,18 @@ class ArchiveItem extends Component {
     const { title } = this.props.archive;
 
     return (
-      <TouchableOpacity
-        onPressOut={() =>
-          this.props.navigation.navigate('Detail', this.props.archive)
-        }
-      >
-        <CardItem>
-          <View style={styles.container}>
+      <CardItem>
+        <View style={styles.container}>
+          <TouchableOpacity
+            onPressOut={() =>
+              this.props.navigation.navigate('Detail', this.props.archive)
+            }
+          >
             <Text style={styles.title}>{title}</Text>
-            {this._renderIcon()}
-          </View>
-        </CardItem>
-      </TouchableOpacity>
+          </TouchableOpacity>
+          {this._renderIcon()}
+        </View>
+      </CardItem>
     );
   }
 }
